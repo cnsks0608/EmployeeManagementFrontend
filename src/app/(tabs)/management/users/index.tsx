@@ -1,8 +1,8 @@
-import { ManagementUserDetailModal } from '@/components/management/ManagementUserDetailModal';
-import { ManagementUserFilterSheet } from '@/components/management/ManagementUserFilterSheet';
-import { ManagementUserFormSheet } from '@/components/management/ManagementUserFormSheet';
-import { ManagementUser, ManagementUserRow, ManagementUserTableHeader } from '@/components/management/ManagementUserRow';
-import { ManagementUserSortModal } from '@/components/management/ManagementUserSortModal';
+import { ManagementUserDetailModal } from '@/components/management/users/ManagementUserDetailModal';
+import { ManagementUserFilterSheet } from '@/components/management/users/ManagementUserFilterSheet';
+import { ManagementUserFormSheet } from '@/components/management/users/ManagementUserFormSheet';
+import { ManagementUser, ManagementUserRow, ManagementUserTableHeader } from '@/components/management/users/ManagementUserRow';
+import { ManagementUserSortModal } from '@/components/management/users/ManagementUserSortModal';
 import { Button } from '@/components/ui/Button/Button';
 import { Grid } from '@/components/ui/Grid/Grid';
 import { Pagination } from '@/components/ui/Pagination/Pagination';

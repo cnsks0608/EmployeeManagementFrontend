@@ -1,8 +1,8 @@
-import { ManagementEmployeeDetailModal } from '@/components/management/ManagementEmployeeDetailModal';
-import { ManagementEmployeeFilterSheet } from '@/components/management/ManagementEmployeeFilterSheet';
-import { ManagementEmployeeFormSheet } from '@/components/management/ManagementEmployeeFormSheet';
-import { ManagementEmployee, ManagementEmployeeRow, ManagementEmployeeTableHeader } from '@/components/management/ManagementEmployeeRow';
-import { ManagementEmployeeSortModal } from '@/components/management/ManagementEmployeeSortModal';
+import { ManagementEmployeeDetailModal } from '@/components/management/employees/ManagementEmployeeDetailModal';
+import { ManagementEmployeeFilterSheet } from '@/components/management/employees/ManagementEmployeeFilterSheet';
+import { ManagementEmployeeFormSheet } from '@/components/management/employees/ManagementEmployeeFormSheet';
+import { ManagementEmployee, ManagementEmployeeRow, ManagementEmployeeTableHeader } from '@/components/management/employees/ManagementEmployeeRow';
+import { ManagementEmployeeSortModal } from '@/components/management/employees/ManagementEmployeeSortModal';
 import { Button } from '@/components/ui/Button/Button';
 import { Grid } from '@/components/ui/Grid/Grid';
 import { Pagination } from '@/components/ui/Pagination/Pagination';
