@@ -99,6 +99,7 @@ export function ManagementActivityLogFilterSheet({ visible, onClose, onApply }: 
                     onChange={(value) => setAction(value as string | undefined)}
                     placeholder="Tüm İşlemler"
                     searchable={false}
+                    maxHeight={250}
                 />
             </View>
 

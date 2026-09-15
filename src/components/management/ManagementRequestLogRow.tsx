@@ -18,15 +18,24 @@ type ManagementRequestLogRowProps = {
 };
 
 function formatDate(dateString: string) {
-        const date = new Date(dateString);
-        return date.toLocaleString('tr-TR', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-        });
-    }
+    const date = new Date(dateString);
+    return date.toLocaleString('tr-TR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+    });
+}
+
+function isRequestSuccessful(statusCode: number) {
+    return statusCode >= 200 && statusCode < 400;
+}
+
+function getRowStyle(statusCode: number, isSelected?: boolean) {
+    if (isSelected) return styles.rowSelected;
+    return isRequestSuccessful(statusCode) ? styles.rowSuccess : styles.rowFailed;
+}
 
 export function ManagementRequestLogTableHeader() {
 
@@ -44,7 +53,7 @@ export function ManagementRequestLogTableHeader() {
 
 export function ManagementRequestLogRow({ log, onPress, isSelected }: ManagementRequestLogRowProps) {
     return (
-        <Pressable style={[styles.row, isSelected && styles.rowSelected]} onPress={onPress}>
+        <Pressable style={getRowStyle(log.statusCode, isSelected)} onPress={onPress}>
             <Text style={[styles.cell, styles.column]} numberOfLines={1}>{log.username || '-'}</Text>
             <Text style={[styles.cell, styles.column]} numberOfLines={1}>{log.httpMethod}</Text>
             <Text style={[styles.cell, styles.column]} numberOfLines={1}>{log.path}</Text>
@@ -79,13 +88,6 @@ const styles = StyleSheet.create({
         borderColor: '#03021d',
         paddingBottom: 4,
     },
-    rowSelected: {
-        flexDirection: 'row',
-        backgroundColor: '#dbdbd6',
-        borderBottomWidth: 1,
-        borderColor: '#03021d',
-        paddingBottom: 4,
-    },
     column: {
         borderRightWidth: 1,
         borderRightColor: '#03021d',
@@ -98,5 +100,26 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: 'black',
         lineHeight: 44,
+    },
+    rowSuccess: {
+        flexDirection: 'row',
+        backgroundColor: '#EAF3DE',
+        borderBottomWidth: 1,
+        borderColor: '#03021d',
+        paddingBottom: 4,
+    },
+    rowFailed: {
+        flexDirection: 'row',
+        backgroundColor: '#FBEAEA',
+        borderBottomWidth: 1,
+        borderColor: '#03021d',
+        paddingBottom: 4,
+    },
+    rowSelected: {
+        flexDirection: 'row',
+        backgroundColor: '#dbdbd6',
+        borderBottomWidth: 1,
+        borderColor: '#03021d',
+        paddingBottom: 4,
     },
 });

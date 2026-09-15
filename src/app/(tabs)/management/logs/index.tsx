@@ -1,6 +1,8 @@
+import { ManagementActivityLogDetailModal } from '@/components/management/ManagementActivityLogDetailModal';
 import { ManagementActivityLogFilterSheet } from '@/components/management/ManagementActivityLogFilterSheet';
 import { ActivityLog, ManagementActivityLogRow, ManagementActivityLogTableHeader } from '@/components/management/ManagementActivityLogRow';
 import { ManagementActivityLogSortModal } from '@/components/management/ManagementActivityLogSortModal';
+import { ManagementRequestLogDetailModal } from '@/components/management/ManagementRequestLogDetailModal';
 import { ManagementRequestLogFilterSheet } from '@/components/management/ManagementRequestLogFilterSheet';
 import { ManagementRequestLogRow, ManagementRequestLogTableHeader, RequestLog } from '@/components/management/ManagementRequestLogRow';
 import { ManagementRequestLogSortModal } from '@/components/management/ManagementRequestLogSortModal';
@@ -14,6 +16,7 @@ import { router, Stack } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
 
+
 export default function ManagementLogsScreen() {
   const [activeTab, setActiveTab] = useState<'activity' | 'request'>('activity');
   const [filterModalVisible, setFilterModalVisible] = useState(false);
@@ -25,6 +28,10 @@ export default function ManagementLogsScreen() {
   const [totalCount, setTotalCount] = useState(0);
   const [sortDirection, setSortDirection] = useState<string | undefined>(undefined);
   const [appliedFilters, setAppliedFilters] = useState({});
+  const [selectedActivityLogId, setSelectedActivityLogId] = useState<number | null>(null);
+  const [activityDetailModalVisible, setActivityDetailModalVisible] = useState(false);
+  const [requestDetailModalVisible, setRequestDetailModalVisible] = useState(false);
+  const [selectedRequestLogId, setSelectedRequestLogId] = useState<number | null>(null);
 
 
   useEffect(() => {
@@ -105,7 +112,16 @@ export default function ManagementLogsScreen() {
                 <ManagementActivityLogTableHeader />
                 <Grid
                   data={activityLogs}
-                  renderItem={(log) => <ManagementActivityLogRow log={log} />}
+                  renderItem={(log) => (
+                    <ManagementActivityLogRow
+                      log={log}
+                      isSelected={log.id === selectedActivityLogId}
+                      onPress={() => {
+                        setSelectedActivityLogId(log.id);
+                        setActivityDetailModalVisible(true);
+                      }}
+                    />
+                  )}
                 />
               </>
             ) : (
@@ -113,7 +129,17 @@ export default function ManagementLogsScreen() {
                 <ManagementRequestLogTableHeader />
                 <Grid
                   data={requestLogs}
-                  renderItem={(log) => <ManagementRequestLogRow log={log} />}
+                  renderItem={(log) => (
+                    <ManagementRequestLogRow
+                      log={log}
+                      isSelected={log.id === selectedRequestLogId}
+                      onPress={() => {
+                        setSelectedRequestLogId(log.id);
+                        setRequestDetailModalVisible(true);
+                      }}
+      
+                    />
+                  )}
                 />
               </>
             )}
@@ -164,6 +190,24 @@ export default function ManagementLogsScreen() {
           }}
         />
       )}
+
+      <ManagementActivityLogDetailModal
+        visible={activityDetailModalVisible}
+        onClose={() => {
+          setActivityDetailModalVisible(false);
+          setSelectedActivityLogId(null);
+        }}
+        selectedActivityLog={activityLogs.find((log) => log.id === selectedActivityLogId) || null}
+      />
+
+      <ManagementRequestLogDetailModal
+        visible={requestDetailModalVisible}
+        onClose={() => {
+          setRequestDetailModalVisible(false);
+          setSelectedRequestLogId(null);
+        }}
+        selectedRequestLog={requestLogs.find((log) => log.id === selectedRequestLogId) || null}
+      />
     </>
   );
 }

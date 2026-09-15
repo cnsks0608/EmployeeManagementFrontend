@@ -1,6 +1,9 @@
-import { Pressable, Modal as RNModal, StyleProp, StyleSheet, Text, ViewStyle } from 'react-native';
+import { Dimensions, Pressable, Modal as RNModal, ScrollView, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 // reactNative in kendi modal componentiyle karışmaması için onu rnmodal olarak import ettik
 import { useEffect, useState } from 'react';
+
+const screenHeight = Dimensions.get('window').height;
+
 
 type ModalProps = {
   visible: boolean;
@@ -8,9 +11,10 @@ type ModalProps = {
   title?: string | null;
   children: React.ReactNode;  // her modalın içeriği birbirinden farklı olacağı için içeriği 
   style?: StyleProp<ViewStyle>;
+  scrollable?: boolean;
 };
 
-export function Modal({ visible, onClose, title, children, style }: ModalProps) {
+export function Modal({ visible, onClose, title, children, style, scrollable = false }: ModalProps) {
   const [titleVisible, setTitleVisible] = useState(true);
 
   useEffect(() => {
@@ -23,12 +27,20 @@ export function Modal({ visible, onClose, title, children, style }: ModalProps) 
 
   return (         // modal açıldığında arkadaki ekran şeffaf bir şekilde görünür, 
     <RNModal visible={visible} transparent={true} animationType="fade" onRequestClose={onClose}>
-      <Pressable style={styles.overlay} onPress={onClose}>
-        <Pressable style={[styles.content, style]} onPress={(e) => e.stopPropagation()}>
+      <View style={styles.overlay}>
+        {/* arka plandaki karartılmış alana tıklanınca modal kapanır, content'in ARKASINDA durduğu için content'e tıklamalar buraya hiç ulaşmaz */}
+        <Pressable style={StyleSheet.absoluteFill} onPress={onClose} />
+        <View style={[styles.content, style]}>
           {titleVisible && title && <Text style={styles.title}>{title}</Text>}
-          {children}
-        </Pressable>
-      </Pressable>
+          {scrollable ? (
+            <ScrollView style={[styles.scrollContent, {  maxHeight: screenHeight * 0.6  }]} contentContainerStyle={{ flexGrow: 1 }}>
+              {children}
+            </ScrollView>
+          ) : (
+            children
+          )}
+        </View>
+      </View>
     </RNModal>
   );
 }
@@ -44,16 +56,21 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: 'bold',
-    textAlign: 'center',
-    
+    textAlign: 'center'
+
   },
   content: {
     backgroundColor: 'white',
     padding: 35,
     borderRadius: 12,
-    gap:12,
+    gap: 12,
+    overflow: 'hidden'
+  },
+  scrollContent: {
+    flexGrow: 1,
+    flexShrink: 1,
   },
 });
 
 // overlay -> arkayı hafif görebildiğimiz modalın arka planı 
-// content -> asıl modal, içine children ile istediğimizi koyarız 
+// content -> asıl modal, içine children ile istediğimizi koyarız

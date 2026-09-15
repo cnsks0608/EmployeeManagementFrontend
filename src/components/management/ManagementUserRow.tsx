@@ -116,7 +116,7 @@ const styles = StyleSheet.create({
 
   rowCreated: {
     flexDirection: 'row',
-    backgroundColor: 'white',
+    backgroundColor: '#EAF3DE',
     borderBottomWidth: 1,
     borderColor: '#03021d',
     paddingBottom: 4,
