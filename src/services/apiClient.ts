@@ -5,7 +5,7 @@ const BACKEND_URL = process.env.EXPO_PUBLIC_API_URL;
 export async function apiClient(endpoint: string, options: RequestInit = {}) {
 
     const url = `${BACKEND_URL}${endpoint}`;  // http://localhost:5225/api/Auth/Login gibi bişey çıkar
-    
+
     const token = await SecureStore.getItemAsync('token');
 
     const headers = {
@@ -18,13 +18,22 @@ export async function apiClient(endpoint: string, options: RequestInit = {}) {
         console.log('Gönderilen veri:', options.body);
     } // isteğin bodysi varsa 
 
-    const response = await fetch(url, {...options, headers});
+    const response = await fetch(url, { ...options, headers });
 
     const responseText = await response.text();
     console.log('Cevap geldi:', response.status, responseText);
 
     if (!response.ok) {
-        throw new Error(responseText || 'Bir hata oluştu.');
+        let errorMessage = responseText || 'Bir hata oluştu.';
+        try {
+            const parsed = JSON.parse(responseText);
+            if (Array.isArray(parsed) && parsed[0]?.errorMessage) {
+                errorMessage = parsed[0].errorMessage;
+            }
+        } catch {
+            // JSON değilse, olduğu gibi bırak
+        }
+        throw new Error(errorMessage);
     }
 
     return responseText ? JSON.parse(responseText) : null;

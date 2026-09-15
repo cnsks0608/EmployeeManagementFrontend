@@ -1,50 +1,49 @@
 import { Button } from '@/components/ui/Button/Button';
 import { Modal } from '@/components/ui/Modal/Modal';
-import { getEmployeeById } from '@/services/employeeService';
+import { getUserById } from '@/services/userService';
 import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-
-type ManagementEmployee = {
+type ManagementUser = {
     id: number;
-    registrationNumber: string;
-    firstName: string;
-    lastName: string;
+    username: string;
     email: string;
-    salary: number;
-    hireDate: string;
-    titleId: number;
-    titleName: string;
-    departmentName: string;
+    roleId: number;
+    roleName: string;
+    employeeId: number;
+    employeeRegistrationNumber: string;
     rowStatus: string;
 };
 
-type ManagementEmployeeDetailModalProps = {
+type ManagementUserDetailModalProps = {
     visible: boolean;
     onClose: () => void;
-    employeeId: number | null;
+    userId: number | null;
     onEdit: () => void;
     onDelete: () => void;
     onReactivate: () => void;
 };
 
-export function ManagementEmployeeDetailModal({ visible, onClose, employeeId, onEdit, onDelete, onReactivate }: ManagementEmployeeDetailModalProps) {
-    const [employee, setEmployee] = useState<ManagementEmployee | null>(null);
-
+export function ManagementUserDetailModal({ visible, onClose, userId, onEdit, onDelete, onReactivate }: ManagementUserDetailModalProps) {
+    const [user, setUser] = useState<ManagementUser | null>(null);
 
     useEffect(() => {
-        async function fetchEmployee() {
-            if (employeeId) {
-                const result = await getEmployeeById(employeeId);
-                setEmployee(result);
+        async function fetchUser() {
+            if (userId) {
+                try {
+                    const result = await getUserById(userId);
+                    setUser(result);
+                } catch (error) {
+                    setUser(null);
+                }
             }
         }
-        fetchEmployee();
-    }, [employeeId, visible]);
+        fetchUser();
+    }, [userId, visible]);
 
-    function getInitials(firstName: string, lastName: string) {
-        return `${firstName[0]}${lastName[0]}`.toUpperCase();
+    function getInitials(username: string) {
+        return username.slice(0, 2).toUpperCase();
     }
 
     function getStatusLabel(rowStatus: string) {
@@ -54,46 +53,36 @@ export function ManagementEmployeeDetailModal({ visible, onClose, employeeId, on
 
     return (
         <Modal visible={visible} onClose={onClose} style={styles.modalSize}>
-            {employee && (
+            {user && (
                 <View style={styles.card}>
                     <View style={styles.avatarSection}>
                         <View style={styles.avatar}>
-                            <Text style={styles.avatarText}>{getInitials(employee.firstName, employee.lastName)}</Text>
+                            <Text style={styles.avatarText}>{getInitials(user.username)}</Text>
                         </View>
-                        <Text style={styles.name}>{employee.firstName} {employee.lastName}</Text>
-                        <Text style={styles.subtitle}>{employee.titleName} · {employee.departmentName}</Text>
+                        <Text style={styles.name}>{user.username}</Text>
+                        <Text style={styles.subtitle}>{user.roleName}</Text>
                     </View>
 
                     <View style={styles.infoSection}>
                         <View style={styles.infoRow}>
-                            <Ionicons name="card-outline" size={16} color="#999" />
-                            <Text style={styles.infoLabel}>Sicil No</Text>
-                            <Text style={styles.infoValue}>{employee.registrationNumber}</Text>
-                        </View>
-                        <View style={styles.infoRow}>
                             <Ionicons name="mail-outline" size={16} color="#999" />
                             <Text style={styles.infoLabel}>Email</Text>
-                            <Text style={styles.infoValue}>{employee.email}</Text>
+                            <Text style={styles.infoValue}>{user.email}</Text>
                         </View>
                         <View style={styles.infoRow}>
-                            <Ionicons name="cash-outline" size={16} color="#999" />
-                            <Text style={styles.infoLabel}>Maaş</Text>
-                            <Text style={styles.infoValue}>{employee.salary.toLocaleString()} ₺</Text>
-                        </View>
-                        <View style={styles.infoRow}>
-                            <Ionicons name="calendar-outline" size={16} color="#999" />
-                            <Text style={styles.infoLabel}>İşe Giriş</Text>
-                            <Text style={styles.infoValue}>{employee.hireDate}</Text>
+                            <Ionicons name="card-outline" size={16} color="#999" />
+                            <Text style={styles.infoLabel}>Bağlı Çalışan</Text>
+                            <Text style={styles.infoValue}>{user.employeeRegistrationNumber}</Text>
                         </View>
                         <View style={styles.infoRow}>
                             <Ionicons name="checkmark-circle-outline" size={16} color="#999" />
                             <Text style={styles.infoLabel}>Durum</Text>
-                            <Text style={styles.infoValue}>{getStatusLabel(employee.rowStatus)}</Text>
+                            <Text style={styles.infoValue}>{getStatusLabel(user.rowStatus)}</Text>
                         </View>
                     </View>
 
                     <View style={styles.buttonRow}>
-                        {employee?.rowStatus === 'Deleted' ? (
+                        {user?.rowStatus === 'Deleted' ? (
                             <View style={styles.buttonFull}>
                                 <Button title="Aktif Et" size="small" color="#EAF3DE" textColor="#3B6D11" onPress={onReactivate} />
                             </View>
@@ -113,7 +102,6 @@ export function ManagementEmployeeDetailModal({ visible, onClose, employeeId, on
         </Modal>
     );
 }
-
 
 const styles = StyleSheet.create({
     card: {
@@ -159,7 +147,7 @@ const styles = StyleSheet.create({
     infoLabel: {
         fontSize: 13,
         color: '#666',
-        width: 80,
+        width: 100,
     },
     infoValue: {
         fontSize: 13,
@@ -167,9 +155,8 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     modalSize: {
-        width: 390,
+        width: 370,
     },
-
     buttonRow: {
         flexDirection: 'row',
         gap: 10,
@@ -182,5 +169,3 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 });
-
-

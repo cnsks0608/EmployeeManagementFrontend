@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useEffect, useState } from 'react';
 import { Alert, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
-
+import Toast from 'react-native-toast-message';
 
 type Department = {
   id: number;
@@ -17,6 +17,7 @@ type Department = {
 type Title = {
   id: number;
   name: string;
+  departmentId: number;
 };
 
 type EmployeeFormData = {
@@ -101,27 +102,44 @@ export function ManagementEmployeeFormSheet({ visible, onClose, onSuccess, mode,
     fetchTitles();
   }, [selectedDepartmentId]);
 
+  useEffect(() => {
+    if (selectedTitleId && titles.length > 0) {
+      const matchingTitle = titles.find((t) => t.id === selectedTitleId);
+      if (matchingTitle) {
+        setSelectedDepartmentId(matchingTitle.departmentId);
+      }
+    }
+  }, [titles, selectedTitleId]);
+
 
   async function handleSave() {
     const parsedSalary = Number(salary);
+    const finalHireDate = hireDate || new Date();
 
     if (!registrationNumber || !firstName || !lastName || !email) {
-      Alert.alert('Hata', 'Lütfen tüm zorunlu alanları doldurun.');
-      return;
-    } // Normalde backendden hata mesajı dönüyor ancak biz backende istek attıktan sonra cevabı beklememek için frontendde de hata mesajı yazıyoruz direkt görünsün diye cevap beklemeden 
-
-    if (!salary || isNaN(parsedSalary)) {
-      Alert.alert('Hata', 'Maaş geçerli bir sayı olmalı.');
+      Toast.show({
+        type: 'error',
+        text1: 'Eksik Bilgi',
+        text2: 'Lütfen tüm zorunlu alanları doldurun.',
+      });
       return;
     }
 
-    if (!hireDate) {
-      Alert.alert('Hata', 'Lütfen işe giriş tarihi seçin.');
+    if (!salary || isNaN(parsedSalary)) {
+      Toast.show({
+        type: 'error',
+        text1: 'Geçersiz Maaş',
+        text2: 'Maaş geçerli bir sayı olmalı.',
+      });
       return;
     }
 
     if (!selectedTitleId) {
-      Alert.alert('Hata', 'Lütfen bir unvan seçin.');
+      Toast.show({
+        type: 'error',
+        text1: 'Eksik Bilgi',
+        text2: 'Lütfen bir unvan seçin.',
+      });
       return;
     }
 
@@ -131,34 +149,77 @@ export function ManagementEmployeeFormSheet({ visible, onClose, onSuccess, mode,
       lastName,
       email,
       salary: parsedSalary,
-      hireDate: hireDate.toISOString().split('T')[0],
+      hireDate: finalHireDate.toISOString().split('T')[0],
       titleId: selectedTitleId,
     };
 
     try {
       if (mode === 'create') {
         await createEmployee(dto);
+        Toast.show({
+          type: 'success',
+          text1: 'Başarılı',
+          text2: 'Çalışan başarıyla eklendi.',
+        });
       } else if (initialData?.id) {
         await updateEmployee(initialData.id, dto);
+        Toast.show({
+          type: 'success',
+          text1: 'Başarılı',
+          text2: 'Çalışan başarıyla güncellendi.',
+        });
       }
       onSuccess();
       onClose();
     } catch (error: any) {
-      Alert.alert('Hata', error.message);
+      Toast.show({
+        type: 'error',
+        text1: 'Hata',
+        text2: error.message,
+      });
     }
 
   }
 
   function handleCancel() {
-    setRegistrationNumber('');
-    setFirstName('');
-    setLastName('');
-    setEmail('');
-    setSalary('');
-    setHireDate(undefined);
-    setSelectedDepartmentId(undefined);
-    setSelectedTitleId(undefined);
-    onClose();
+    const hasChanges = mode === 'create'
+      ? (registrationNumber || firstName || lastName || email || salary || hireDate || selectedTitleId)
+      : (
+        registrationNumber !== initialData?.registrationNumber ||
+        firstName !== initialData?.firstName ||
+        lastName !== initialData?.lastName ||
+        email !== initialData?.email ||
+        salary !== initialData?.salary ||
+        selectedTitleId !== initialData?.titleId
+      );
+
+
+    if (hasChanges) {
+      Alert.alert(
+        'Emin misiniz?',
+        'Kaydedilmemiş değişiklikleriniz kaybolacak.',
+        [
+          { text: 'Vazgeç', style: 'cancel' },
+          {
+            text: 'Çık',
+            style: 'destructive',
+            onPress: () => {
+              setRegistrationNumber('');
+              setFirstName('');
+              setLastName('');
+              setEmail('');
+              setSalary('');
+              setHireDate(undefined);
+              setSelectedDepartmentId(undefined);
+              setSelectedTitleId(undefined);
+              onClose();
+            },
+          },
+        ]
+      );
+    } else {
+      onClose();
+    }
   }
 
   return (
@@ -166,7 +227,7 @@ export function ManagementEmployeeFormSheet({ visible, onClose, onSuccess, mode,
       <View style={styles.field}>
         <Text style={styles.label}>Sicil No</Text>
         <View style={styles.inputWithClear}>
-          <TextInput style={styles.inputFlex} placeholder="Sicil No" value={registrationNumber} onChangeText={setRegistrationNumber} />
+          <TextInput style={styles.inputFlex} placeholder="Sicil No" value={registrationNumber} onChangeText={setRegistrationNumber} autoCapitalize="none" />
           {registrationNumber.length > 0 && (
             <Pressable onPress={() => setRegistrationNumber('')}>
               <Ionicons name="close-circle" size={18} color="#999" />
@@ -257,7 +318,13 @@ export function ManagementEmployeeFormSheet({ visible, onClose, onSuccess, mode,
           <Dropdown
             data={titles.map((t) => ({ label: t.name, value: t.id }))}
             value={selectedTitleId}
-            onChange={(value) => setSelectedTitleId(value as number | undefined)}
+            onChange={(value) => {
+              setSelectedTitleId(value as number | undefined);
+              const selectedTitle = titles.find((t) => t.id === value);
+              if (selectedTitle) {
+                setSelectedDepartmentId(selectedTitle.departmentId);
+              }
+            }}
             placeholder="Unvan seçin"
             maxHeight={240}
           />
@@ -266,10 +333,10 @@ export function ManagementEmployeeFormSheet({ visible, onClose, onSuccess, mode,
 
       <View style={styles.buttonRow}>
         <View style={styles.buttonHalf}>
-          <Button title="İptal" size= "small" variant="secondary" textColor="#333" onPress={handleCancel} />
+          <Button title="İptal" size="small" variant="secondary" textColor="#333" onPress={handleCancel} />
         </View>
         <View style={styles.buttonHalf}>
-          <Button title="Kaydet" size= "small" onPress={handleSave} />
+          <Button title="Kaydet" size="small" onPress={handleSave} />
         </View>
       </View>
 
@@ -334,7 +401,7 @@ const styles = StyleSheet.create({
   buttonRow: {
     flexDirection: 'row',
     gap: 10,
-    marginTop: 40 ,
+    marginTop: 40,
   },
   buttonHalf: {
     flex: 1,

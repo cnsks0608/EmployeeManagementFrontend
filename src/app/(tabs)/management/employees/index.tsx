@@ -6,12 +6,13 @@ import { ManagementEmployeeSortModal } from '@/components/management/ManagementE
 import { Button } from '@/components/ui/Button/Button';
 import { Grid } from '@/components/ui/Grid/Grid';
 import { Pagination } from '@/components/ui/Pagination/Pagination';
-import { getAllEmployees } from '@/services/employeeService';
+import { deleteEmployee, getAllEmployees, reactivateEmployee } from '@/services/employeeService';
 import { employeesStyles } from '@/styles/employees.styles';
 import { Ionicons } from '@expo/vector-icons';
 import { router, Stack } from 'expo-router';
 import { useEffect, useState } from 'react';
-import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { Alert, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 
 export default function ManagementEmployeesScreen() {
@@ -30,6 +31,8 @@ export default function ManagementEmployeesScreen() {
   const [detailModalVisible, setDetailModalVisible] = useState(false);
   const [formVisible, setFormVisible] = useState(false);
   const [formMode, setFormMode] = useState<'create' | 'edit'>('create');
+  const [editingEmployee, setEditingEmployee] = useState<any>(undefined);
+
 
   useEffect(() => {
     async function fetchEmployees() {
@@ -53,6 +56,77 @@ export default function ManagementEmployeesScreen() {
     setAppliedSearch(searchText);
   }
 
+  function handleDelete() {
+    if (!selectedEmployeeId) return;
+
+    Alert.alert(
+      'Emin misiniz?',
+      'Bu çalışanı silmek istediğinize emin misiniz?',
+      [
+        { text: 'Vazgeç', style: 'cancel' },
+        {
+          text: 'Sil',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await deleteEmployee(selectedEmployeeId);
+              Toast.show({
+                type: 'success',
+                text1: 'Başarılı',
+                text2: 'Çalışan silindi.',
+              });
+              setDetailModalVisible(false);
+              setSelectedEmployeeId(null);
+              setPageNumber(1);
+              setAppliedFilters({ ...appliedFilters });
+            } catch (error: any) {
+              Alert.alert('Hata', error.message);
+            }
+          },
+        },
+      ]
+    );
+  }
+
+  async function handleReactivate() {
+    if (!selectedEmployeeId) return;
+
+    try {
+      await reactivateEmployee(selectedEmployeeId);
+      Toast.show({
+        type: 'success',
+        text1: 'Başarılı',
+        text2: 'Çalışan tekrar aktif edildi.',
+      });
+      setDetailModalVisible(false);
+      setSelectedEmployeeId(null);
+      setPageNumber(1);
+      setAppliedFilters({ ...appliedFilters });
+    } catch (error: any) {
+      Alert.alert('Hata', error.message);
+    }
+  }
+
+  function handleEdit() {
+    const employee = employees.find((e) => e.id === selectedEmployeeId);
+    if (!employee) return;
+
+    setEditingEmployee({
+      id: employee.id,
+      registrationNumber: employee.registrationNumber,
+      firstName: employee.firstName,
+      lastName: employee.lastName,
+      email: employee.email,
+      salary: String(employee.salary),
+      hireDate: new Date(employee.hireDate),
+      titleId: employee.titleId,
+      departmentId: undefined,
+    });
+    setDetailModalVisible(false);
+    setFormMode('edit');
+    setFormVisible(true);
+  }
+
   return (
     <>
       <Stack.Screen
@@ -67,7 +141,7 @@ export default function ManagementEmployeesScreen() {
       />
 
       <View style={employeesStyles.container}>
-        <View style={{marginBottom: 10 }}>
+        <View style={{ marginBottom: 10 }}>
           <Button
             title="+ Çalışan Ekle"
             size="small"
@@ -76,6 +150,7 @@ export default function ManagementEmployeesScreen() {
             onPress={() => {
               setFormMode('create');
               setFormVisible(true);
+              setEditingEmployee(undefined);
             }}
           />
         </View>
@@ -99,7 +174,7 @@ export default function ManagementEmployeesScreen() {
             <Button icon="options-outline" size="small" iconColor="gray" color="transparent" onPress={() => setFilterModalVisible(true)} />
             <Button icon="swap-vertical-outline" size="small" iconColor="gray" color="transparent" onPress={() => setSortModalVisible(true)} />
           </View>
-          <Button title="Ara" color="gray" size="small" onPress={handleSearch} />
+          <Button title="Ara" color="#B0B0B0" size="small" onPress={handleSearch} />
         </View>
 
         <Text style={employeesStyles.resultCount}>{totalCount} kayıt bulundu</Text>
@@ -154,16 +229,25 @@ export default function ManagementEmployeesScreen() {
           setSelectedEmployeeId(null);
         }}
         employeeId={selectedEmployeeId}
+        onEdit={handleEdit}
+        onDelete={handleDelete}
+        onReactivate={handleReactivate}
       />
 
       <ManagementEmployeeFormSheet
         visible={formVisible}
-        onClose={() => setFormVisible(false)}
+        onClose={() => {
+          setFormVisible(false);
+          if (formMode === 'edit') {
+            setDetailModalVisible(true);
+          }
+        }}
         onSuccess={() => {
           setPageNumber(1);
           setAppliedFilters({ ...appliedFilters });
         }}
         mode={formMode}
+        initialData={editingEmployee}
       />
     </>
   );

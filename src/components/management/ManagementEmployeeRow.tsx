@@ -11,7 +11,7 @@ export type ManagementEmployee = {
     titleId: number;
     titleName: string;
     departmentName: string;
-    rowStatus: number;
+    rowStatus: string;
 };
 
 type ManagementEmployeeRowProps = {
@@ -21,10 +21,19 @@ type ManagementEmployeeRowProps = {
 };
 
 function getStatusLabel(rowStatus: number | string) {
-    if (rowStatus === 1 || rowStatus === 'Created') return 'Created';
-    if (rowStatus === 2 || rowStatus === 'Updated') return 'Updated';
-    if (rowStatus === 3 || rowStatus === 'Deleted') return 'Deleted';
+    if (rowStatus === 1 || rowStatus === 'Created') return 'Oluşturulmuş';
+    if (rowStatus === 2 || rowStatus === 'Updated') return 'Güncellenmiş';
+    if (rowStatus === 3 || rowStatus === 'Deleted') return 'Silinmiş';
     return 'Bilinmiyor';
+}
+
+function getRowStyle(rowStatus: string, isSelected?: boolean) {
+    if (isSelected) return styles.rowSelected;
+    if (rowStatus === 'Deleted') return styles.rowDeleted;
+    if (rowStatus === 'Created') return styles.rowCreated;
+    if (rowStatus === 'Updated') return styles.rowUpdated;
+
+    return styles.row;
 }
 
 export function ManagementEmployeeTableHeader() {
@@ -44,7 +53,7 @@ export function ManagementEmployeeTableHeader() {
 
 export function ManagementEmployeeRow({ employee, onPress, isSelected }: ManagementEmployeeRowProps) {
     return (
-        <Pressable style={[styles.row, isSelected && styles.rowSelected]} onPress={onPress}>
+        <Pressable style={getRowStyle(employee.rowStatus, isSelected)} onPress={onPress}>
             <Text style={[styles.cell, styles.column]} numberOfLines={1}>{employee.firstName} {employee.lastName}</Text>
             <Text style={[styles.cell1, styles.column]} numberOfLines={1}>{employee.registrationNumber}</Text>
             <Text style={[styles.cell1, styles.column]} numberOfLines={1}>{employee.departmentName}</Text>
@@ -85,6 +94,7 @@ const styles = StyleSheet.create({
 
     rowSelected: {
         backgroundColor: '#dbdbd6',
+        flexDirection: 'row',
     },
 
     column: {
@@ -108,6 +118,28 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: 'black',
         lineHeight: 44,
+    },
+
+    rowCreated: {
+        flexDirection: 'row',
+        backgroundColor: '#EAF3DE',
+        borderBottomWidth: 1,
+        borderColor: '#03021d',
+        paddingBottom: 4,
+    },
+    rowUpdated: {
+        flexDirection: 'row',
+        backgroundColor: '#FFF8E1',
+        borderBottomWidth: 1,
+        borderColor: '#03021d',
+        paddingBottom: 4,
+    },
+    rowDeleted: {
+        flexDirection: 'row',
+        backgroundColor: '#FBEAEA',
+        borderBottomWidth: 1,
+        borderColor: '#03021d',
+        paddingBottom: 4,
     },
 
 });

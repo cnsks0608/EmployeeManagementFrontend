@@ -11,6 +11,7 @@ type GetAllEmployeesParams = {
     pageNumber?: number;
     pageSize?: number;
     status?: string;
+    hasNoUser?: boolean;
     departmentId?: number;
     titleId?: number;
     sortBy?: string;
@@ -47,6 +48,11 @@ export async function getAllEmployees(params: GetAllEmployeesParams = {}) {
     if (params.titleId) {
         searchParams.append('titleId', String(params.titleId));
     }
+
+    if (params.hasNoUser) {
+        searchParams.append('hasNoUser', 'true');
+    }
+    
     if (params.sortBy) {
         searchParams.append('sortBy', params.sortBy);
     }
@@ -122,9 +128,9 @@ export async function deleteEmployee(id: number) {
 // -------
 
 export async function reactivateEmployee(id: number) {
-  return apiClient(`/api/Employee/ReactivateEmployee/${id}`, {
-    method: 'PUT',
-  });
+    return apiClient(`/api/Employee/ReactivateEmployee/${id}`, {
+        method: 'PUT',
+    });
 }
 
 

@@ -5,7 +5,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import * as SecureStore from 'expo-secure-store';
 import { useState } from 'react';
-import { Alert, Pressable, Text, TextInput, View } from 'react-native';
+import { Pressable, Text, TextInput, View } from 'react-native';
+import Toast from 'react-native-toast-message';
+
 
 export default function LoginScreen() {
   const [mailOrUsername, setMailOrUsername] = useState('');
@@ -17,43 +19,52 @@ export default function LoginScreen() {
     try {
       const data = await login(mailOrUsername, password);
       await SecureStore.setItemAsync('token', data.token);
+      Toast.show({
+        type: 'success',
+        text1: 'Hoş Geldiniz',
+        text2: 'Giriş başarılı.',
+      });
       router.replace('/(tabs)/employees');
-    } catch (error) {
-      Alert.alert('Giriş Başarısız', error.message);
+    } catch (error: any) {
+      Toast.show({
+        type: 'error',
+        text1: 'Giriş Başarısız',
+        text2: error.message,
+      });
     }
   }
 
-  return (
-    <View style={loginStyles.container}>
-      <Text style={loginStyles.title}>Giriş Yap</Text>
+    return (
+      <View style={loginStyles.container}>
+        <Text style={loginStyles.title}>Giriş Yap</Text>
 
-      <TextInput
-        style={loginStyles.input}
-        placeholder="Kullanıcı adı veya email"
-        value={mailOrUsername}
-        onChangeText={setMailOrUsername} // kullanıcı herhangi bir değişiklik yaptığında mailOrUsername stateine kaydedilir 
-        autoCapitalize="none" // otomatik harf büyütmeyi vs devredışı bırakırız
-      />
-
-      <View style={loginStyles.passwordContainer}>
         <TextInput
-          style={loginStyles.passwordInput}
-          placeholder="Şifre"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry={!showPassword} // showpassword statei true ise şifreyi gösterir değilse göstermez
+          style={loginStyles.input}
+          placeholder="Kullanıcı adı veya email"
+          value={mailOrUsername}
+          onChangeText={setMailOrUsername} // kullanıcı herhangi bir değişiklik yaptığında mailOrUsername stateine kaydedilir 
+          autoCapitalize="none" // otomatik harf büyütmeyi vs devredışı bırakırız
         />
-        <Pressable onPress={() => setShowPassword(!showPassword)}>
-          <Ionicons
-            name={showPassword ? 'eye-off' : 'eye'}
-            size={22}
-            color="#666"
+
+        <View style={loginStyles.passwordContainer}>
+          <TextInput
+            style={loginStyles.passwordInput}
+            placeholder="Şifre"
+            value={password}
+            onChangeText={setPassword}
+            secureTextEntry={!showPassword} // showpassword statei true ise şifreyi gösterir değilse göstermez
           />
-        </Pressable>
+          <Pressable onPress={() => setShowPassword(!showPassword)}>
+            <Ionicons
+              name={showPassword ? 'eye-off' : 'eye'}
+              size={22}
+              color="#666"
+            />
+          </Pressable>
+        </View>
+        <View style={{ flex: 1, flexDirection: "row", justifyContent: 'center', }}>
+          <Button title="Giriş Yap" onPress={handleLogin} size="large" />
+        </View>
       </View>
-      <View style={{ flex: 1, flexDirection: "row", justifyContent: 'center', }}>
-        <Button title="Giriş Yap" onPress={handleLogin} size="large" />
-      </View>
-    </View>
-  );
-}
+    );
+  }

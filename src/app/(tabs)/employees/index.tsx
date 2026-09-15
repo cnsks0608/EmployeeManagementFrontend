@@ -26,8 +26,6 @@ export default function EmployeesScreen() {
   const [selectedEmployeeId, setSelectedEmployeeId] = useState<number | null>(null);
   const [detailModalVisible, setDetailModalVisible] = useState(false);
 
-
-
   useEffect(() => {
     async function fetchEmployees() {
       const result = await getAllEmployees({ pageNumber, search: appliedSearch, sortBy, sortDirection, ...appliedFilters });
@@ -64,7 +62,7 @@ export default function EmployeesScreen() {
           <Button icon="options-outline" size="small" iconColor="gray" color="transparent" onPress={() => setFilterModalVisible(true)} />
           <Button icon="swap-vertical-outline" size="small" iconColor="gray" color="transparent" onPress={() => setSortModalVisible(true)} />
         </View>
-        <Button title="Ara" color="gray" size="small" onPress={handleSearch} />
+        <Button title="Ara" color="#B0B0B0" size="small" onPress={handleSearch} />
       </View>
 
       <Text style={employeesStyles.resultCount}>{totalCount} kayıt bulundu</Text>

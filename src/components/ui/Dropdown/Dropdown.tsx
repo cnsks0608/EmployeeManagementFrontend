@@ -1,24 +1,24 @@
 import { Ionicons } from '@expo/vector-icons';
-import { Pressable, StyleProp, StyleSheet, ViewStyle } from 'react-native';
+import { Pressable, StyleProp, StyleSheet, Text, TextInput, ViewStyle } from 'react-native';
 import { Dropdown as ElementDropdown } from 'react-native-element-dropdown';
-
 
 type DropdownItem = {
   label: string;
-  value: number | string | undefined; // undefined -> tüm departmanlar gibi
+  value: number | string | undefined;
 };
 
 type DropdownProps = {
-  data: DropdownItem[];  // tüm seçeneklerin listesi 
+  data: DropdownItem[];
   value: number | string | undefined;
   onChange: (value: number | string | undefined) => void;
   placeholder: string;
   style?: StyleProp<ViewStyle>;
   searchable?: boolean;
-  maxHeight?: number; 
+  maxHeight?: number;
+  listHeaderLabel?: string;
 };
 
-export function Dropdown({ data, value, onChange, placeholder, style, searchable = true, maxHeight }: DropdownProps) {
+export function Dropdown({ data, value, onChange, placeholder, style, searchable = true, maxHeight, listHeaderLabel }: DropdownProps) {
   return (
     <ElementDropdown
       style={[styles.dropdown, style]}
@@ -43,8 +43,24 @@ export function Dropdown({ data, value, onChange, placeholder, style, searchable
           <Ionicons name="chevron-down" size={18} color="#999" />
         )
       }
+      renderInputSearch={(onSearch) => (
+        <TextInput
+          style={styles.searchInput}
+          placeholder="Ara..."
+          autoCapitalize="none"
+          onChangeText={onSearch}
+        />
+      )}
+      flatListProps={
+        listHeaderLabel
+          ? {
+            ListHeaderComponent: () => (
+              <Text style={styles.listHeader}>{listHeaderLabel}</Text>
+            ),
+          }
+          : undefined
+      }
     />
-    // searchPlaceholder -> dropdown açıkken görünen, placeholder -> dropdown kapalıyken görünen
   );
 }
 
@@ -64,8 +80,21 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#333',
   },
+
   searchInput: {
-    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
     fontSize: 14,
+    margin: 8,
+  },
+  listHeader: {
+    fontSize: 12,
+    color: '#666',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    backgroundColor: '#f5f5f5',
   },
 });
