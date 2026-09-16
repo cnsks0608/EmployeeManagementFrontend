@@ -119,7 +119,6 @@ export default function ManagementUsersScreen() {
     setEditingUser({
       id: user.id,
       username: user.username,
-      email: user.email,
       roleType: user.roleName,
       employeeId: user.employeeId,
     });

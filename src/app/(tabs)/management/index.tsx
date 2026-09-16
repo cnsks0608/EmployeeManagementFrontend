@@ -16,7 +16,6 @@ export default function ManagementScreen() {
         </View>
         <Ionicons name="chevron-forward" size={18} color="#999" />
       </Pressable>
-
       <Pressable style={styles.card} onPress={() => router.push('/(tabs)/management/users')}>
         <View style={[styles.iconBox, styles.iconBoxGreen]}>
           <Ionicons name="person-circle" size={22} color="#3B6D11" />

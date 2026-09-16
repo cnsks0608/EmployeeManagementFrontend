@@ -12,13 +12,13 @@ type Employee = {
   id: number;
   firstName: string;
   lastName: string;
+  email:string;
   registrationNumber: string;
 };
 
 type UserFormData = {
   id?: number;
   username: string;
-  email: string;
   roleType: string;
   employeeId: number | undefined;
 };
@@ -33,7 +33,6 @@ type ManagementUserFormSheetProps = {
 
 export function ManagementUserFormSheet({ visible, onClose, onSuccess, mode, initialData }: ManagementUserFormSheetProps) {
   const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -53,12 +52,10 @@ export function ManagementUserFormSheet({ visible, onClose, onSuccess, mode, ini
   useEffect(() => {
     if (initialData) {
       setUsername(initialData.username);
-      setEmail(initialData.email);
       setRoleType(initialData.roleType);
       setSelectedEmployeeId(initialData.employeeId);
     } else {
       setUsername('');
-      setEmail('');
       setPassword('');
       setConfirmPassword('');
       setRoleType(undefined);
@@ -67,11 +64,11 @@ export function ManagementUserFormSheet({ visible, onClose, onSuccess, mode, ini
   }, [initialData, visible]);
 
   async function handleSave() {
-    if (!username || !email) {
+    if (!username) {
       Toast.show({
         type: 'error',
         text1: 'Eksik Bilgi',
-        text2: 'Lütfen tüm zorunlu alanları doldurun.',
+        text2: 'Lütfen kullanıcı adı girin.',
       });
       return;
     }
@@ -118,7 +115,6 @@ export function ManagementUserFormSheet({ visible, onClose, onSuccess, mode, ini
       if (mode === 'create') {
         await createUser({
           username,
-          email,
           password,
           confirmPassword,
           roleType,
@@ -132,7 +128,6 @@ export function ManagementUserFormSheet({ visible, onClose, onSuccess, mode, ini
       } else if (initialData?.id) {
         await updateUser(initialData.id, {
           username,
-          email,
           roleType,
         });
         Toast.show({
@@ -154,10 +149,9 @@ export function ManagementUserFormSheet({ visible, onClose, onSuccess, mode, ini
 
   function handleCancel() {
     const hasChanges = mode === 'create'
-      ? (username || email || password || confirmPassword || roleType || selectedEmployeeId)
+      ? (username ||  password || confirmPassword || roleType || selectedEmployeeId)
       : (
           username !== initialData?.username ||
-          email !== initialData?.email ||
           roleType !== initialData?.roleType
         );
 
@@ -172,7 +166,6 @@ export function ManagementUserFormSheet({ visible, onClose, onSuccess, mode, ini
             style: 'destructive',
             onPress: () => {
               setUsername('');
-              setEmail('');
               setPassword('');
               setConfirmPassword('');
               setRoleType(undefined);
@@ -201,17 +194,6 @@ export function ManagementUserFormSheet({ visible, onClose, onSuccess, mode, ini
         </View>
       </View>
 
-      <View style={styles.field}>
-        <Text style={styles.label}>Email</Text>
-        <View style={styles.inputWithClear}>
-          <TextInput style={styles.inputFlex} placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" />
-          {email.length > 0 && (
-            <Pressable onPress={() => setEmail('')}>
-              <Ionicons name="close-circle" size={18} color="#999" />
-            </Pressable>
-          )}
-        </View>
-      </View>
 
       {mode === 'create' && (
         <View style={[styles.field, styles.twoColumnRow]}>

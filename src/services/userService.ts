@@ -42,7 +42,6 @@ export async function getUserById(id: number) {
 
 type CreateUserDto = {
   username: string;
-  email: string;
   password: string;
   confirmPassword: string;
   roleType: string;
@@ -62,7 +61,6 @@ export async function createUser(dto: CreateUserDto) {
 
 type UpdateUserDto = {
   username: string;
-  email: string;
   roleType: string;
 };
 
