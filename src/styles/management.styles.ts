@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '@/constants/colors';
 
 export const managementStyles = StyleSheet.create({
   container: {
@@ -6,14 +7,9 @@ export const managementStyles = StyleSheet.create({
     padding: 20,
     gap: 12,
   },
-  card: {
+  navigationCard: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'white',
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: '#eee',
-    padding: 16,
     gap: 14,
   },
   iconBox: {
@@ -24,13 +20,13 @@ export const managementStyles = StyleSheet.create({
     justifyContent: 'center',
   },
   iconBoxBlue: {
-    backgroundColor: '#E6F1FB',
+    backgroundColor: colors.primaryBg,
   },
   iconBoxGreen: {
-    backgroundColor: '#EAF3DE',
+    backgroundColor: colors.successBg,
   },
   iconBoxAmber: {
-    backgroundColor: '#FAEEDA',
+    backgroundColor: colors.warningBg,
   },
   textContainer: {
     flex: 1,
@@ -41,7 +37,7 @@ export const managementStyles = StyleSheet.create({
   },
   cardSubtitle: {
     fontSize: 12,
-    color: '#666',
+    color: colors.gray600,
     marginTop: 2,
   },
 });

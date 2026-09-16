@@ -50,7 +50,7 @@ export function ManagementRequestLogDetailModal({ visible, onClose, selectedRequ
     return (
         <Modal visible={visible} onClose={onClose} style={styles.modalSize} scrollable={true}>
             {selectedRequestLog && (
-                <View style={styles.card}>
+                <View style={styles.detailContent}>
                     <View style={styles.avatarSection}>
                         <View style={[styles.avatar, { backgroundColor: getMethodStyle(selectedRequestLog.httpMethod).bgColor }]}>
                             <Ionicons
@@ -101,7 +101,7 @@ export function ManagementRequestLogDetailModal({ visible, onClose, selectedRequ
 }
 
 const styles = StyleSheet.create({
-    card: {
+    detailContent: {
         gap: 20,
     },
     avatarSection: {

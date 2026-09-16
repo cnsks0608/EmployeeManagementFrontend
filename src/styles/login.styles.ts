@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '@/constants/colors';
 
 export const loginStyles = StyleSheet.create({
   container: {
@@ -6,7 +7,7 @@ export const loginStyles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
     gap: 16,
-    marginTop:300
+    marginTop: 300
   },
   title: {
     fontSize: 28,
@@ -16,7 +17,7 @@ export const loginStyles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colors.gray400,
     borderRadius: 8,
     padding: 12,
     fontSize: 16,
@@ -25,7 +26,7 @@ export const loginStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colors.gray400,
     borderRadius: 8,
     paddingRight: 12,
   },

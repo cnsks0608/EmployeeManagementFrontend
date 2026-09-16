@@ -6,6 +6,7 @@ import { Ionicons } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store';
 import { router } from 'expo-router';
 import { Button } from '@/components/ui/Button/Button';
+import { Card } from '@/components/ui/Card/Card';
 import { AccountDetailModal } from '@/components/profile/AccountDetailModal';
 import { profileStyles as styles } from '@/styles/profile.styles';
 import { colors } from '@/constants/colors';
@@ -76,7 +77,7 @@ export default function ProfileScreen() {
           )}
         </View>
 
-        <Pressable style={styles.card} onPress={() => setAccountModalVisible(true)}>
+        <Card style={styles.infoCard} onPress={() => setAccountModalVisible(true)}>
           <View style={styles.cardHeader}>
             <View style={styles.cardTitleGroup}>
               <Ionicons name="person-circle-outline" size={20} color={colors.primary} />
@@ -93,10 +94,10 @@ export default function ProfileScreen() {
             <Text style={styles.label}>Rol</Text>
             <Text style={styles.value}>{user?.roleName || '-'}</Text>
           </View>
-        </Pressable>
+        </Card>
 
 
-        <View style={styles.card}>
+        <Card style={styles.infoCard}>
           <View style={styles.cardHeader}>
             <View style={styles.cardTitleGroup}>
               <Ionicons name="briefcase-outline" size={20} color={colors.success} />
@@ -136,7 +137,7 @@ export default function ProfileScreen() {
               {employee?.salary ? `${employee.salary.toLocaleString('tr-TR')} ₺` : '-'}
             </Text>
           </View>
-        </View>
+        </Card>
 
         <View style={styles.logoutWrapper}>
           <Button title="Çıkış Yap" color={colors.dangerBg} textColor={colors.danger} size="large" onPress={handleLogout} />

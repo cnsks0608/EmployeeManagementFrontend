@@ -33,7 +33,7 @@ export function EmployeeDetailModal({ visible, onClose, employeeId }: EmployeeDe
     return (
         <Modal visible={visible} onClose={onClose} style={styles.modalSize}>
             {employee && (
-                <View style={styles.card}>
+                <View style={styles.detailContent}>
                     <View style={styles.avatarSection}>
                         <View style={styles.avatar}>
                             <Text style={styles.avatarText}>{getInitials(employee.firstName, employee.lastName)}</Text>
@@ -66,7 +66,7 @@ export function EmployeeDetailModal({ visible, onClose, employeeId }: EmployeeDe
 }
 
 const styles = StyleSheet.create({
-    card: {
+    detailContent: {
         gap: 28,
     },
     avatarSection: {
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         width: 72,
         height: 72,
         borderRadius: 36,
-        backgroundColor: colors.blueLight,
+        backgroundColor: colors.primaryBg,
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 10,
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     avatarText: {
         fontSize: 24,
         fontWeight: '600',
-        color: colors.bluePrimary,
+        color: colors.primary,
     },
     name: {
         fontSize: 18,

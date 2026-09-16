@@ -55,7 +55,7 @@ export function ManagementEmployeeDetailModal({ visible, onClose, employeeId, on
     return (
         <Modal visible={visible} onClose={onClose} style={styles.modalSize}>
             {employee && (
-                <View style={styles.card}>
+                <View style={styles.detailContent}>
                     <View style={styles.avatarSection}>
                         <View style={styles.avatar}>
                             <Text style={styles.avatarText}>{getInitials(employee.firstName, employee.lastName)}</Text>
@@ -116,7 +116,7 @@ export function ManagementEmployeeDetailModal({ visible, onClose, employeeId, on
 
 
 const styles = StyleSheet.create({
-    card: {
+    detailContent: {
         gap: 20,
     },
     avatarSection: {

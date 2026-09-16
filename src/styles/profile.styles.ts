@@ -1,9 +1,10 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '@/constants/colors';
 
 export const profileStyles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: colors.white,
   },
   contentContainer: {
     padding: 20,
@@ -18,34 +19,29 @@ export const profileStyles = StyleSheet.create({
     width: 80,
     height: 80,
     borderRadius: 40,
-    backgroundColor: '#E6F1FB',
+    backgroundColor: colors.primaryBg,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 12,
   },
   avatarText: {
-    color: '#185FA5',
+    color: colors.primary,
     fontSize: 26,
     fontWeight: 'bold',
   },
   name: {
     fontSize: 20,
     fontWeight: '600',
-    color: '#333',
+    color: colors.gray800,
     marginBottom: 4,
   },
   subtitle: {
     fontSize: 13,
-    color: '#666',
+    color: colors.gray600,
   },
-  card: {
+  infoCard: {
     width: '100%',
-    backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 16,
     marginBottom: 16,
-    borderWidth: 1,
-    borderColor: '#eee',
   },
   cardHeader: {
     flexDirection: 'row',
@@ -54,7 +50,7 @@ export const profileStyles = StyleSheet.create({
     marginBottom: 12,
     paddingBottom: 12,
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
+    borderBottomColor: colors.borderLight,
   },
   cardTitleGroup: {
     flexDirection: 'row',
@@ -64,7 +60,7 @@ export const profileStyles = StyleSheet.create({
   cardTitle: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#333',
+    color: colors.gray800,
   },
   row: {
     flexDirection: 'row',
@@ -74,12 +70,12 @@ export const profileStyles = StyleSheet.create({
   },
   label: {
     fontSize: 13,
-    color: '#666',
+    color: colors.gray600,
   },
   value: {
     fontSize: 13,
     fontWeight: '500',
-    color: '#333',
+    color: colors.gray800,
   },
   logoutWrapper: {
     width: '100%',

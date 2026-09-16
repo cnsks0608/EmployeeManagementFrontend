@@ -56,7 +56,7 @@ export function ManagementActivityLogDetailModal({ visible, onClose, selectedAct
         
         <Modal visible={visible} onClose={onClose} style={styles.modalSize} scrollable={true}>
             {selectedActivityLog && (
-                <View style={styles.card}>
+                <View style={styles.detailContent}>
                     <View style={styles.avatarSection}>
                         <View style={[styles.avatar, { backgroundColor: getActionStyle(selectedActivityLog.action).bgColor }]}>
                             <Ionicons
@@ -110,7 +110,7 @@ export function ManagementActivityLogDetailModal({ visible, onClose, selectedAct
 }
 
 const styles = StyleSheet.create({
-    card: {
+    detailContent: {
         gap: 20,
     },
     title: {

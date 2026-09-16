@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '@/constants/colors';
 
 export const managementEmployeeFilterSheetStyles = StyleSheet.create({
   field: {
@@ -6,12 +7,12 @@ export const managementEmployeeFilterSheetStyles = StyleSheet.create({
   },
   label: {
     fontSize: 12,
-    color: '#666',
+    color: colors.gray600,
     marginBottom: 4,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colors.gray400,
     borderRadius: 8,
     padding: 8,
     fontSize: 14,
@@ -34,7 +35,7 @@ export const managementEmployeeFilterSheetStyles = StyleSheet.create({
   },
   dateLabel: {
     fontSize: 12,
-    color: '#666',
+    color: colors.gray600,
     marginBottom: 6,
   },
   dateWithClear: {
@@ -54,7 +55,7 @@ export const managementEmployeeFilterSheetStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colors.gray400,
     borderRadius: 8,
     paddingHorizontal: 10,
   },

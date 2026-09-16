@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { colors } from '@/constants/colors';
 
 export const employeesStyles = StyleSheet.create({
     container: {
@@ -16,7 +17,7 @@ export const employeesStyles = StyleSheet.create({
     searchInput: {
         flex: 1,
         borderWidth: 1,
-        borderColor: 'gray',
+        borderColor: colors.gray500,
         borderRadius: 8,
         padding: 10,
     },
@@ -24,7 +25,7 @@ export const employeesStyles = StyleSheet.create({
         marginHorizontal: 10,
         marginBottom: 25,
         marginTop: 8,
-        color: '#666',
+        color: colors.gray600,
     },
     tableWrapper: {
         // sabit genişlik kaldırıldı, içerik kendi genişliğini alacak
@@ -38,10 +39,10 @@ export const employeesStyles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: 'gray',
+        borderColor: colors.gray500,
         borderRadius: 8,
         paddingHorizontal: 10,
-       
+
     },
     searchInputFlex: {
         flex: 1,
