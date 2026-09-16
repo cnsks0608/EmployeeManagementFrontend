@@ -4,6 +4,7 @@ import { Dropdown } from '@/components/ui/Dropdown/Dropdown';
 import { getAllEmployees } from '@/services/employeeService';
 import { useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
+import { colors } from '@/constants/colors';
 
 type Employee = {
     id: number;
@@ -58,7 +59,7 @@ export function ManagementUserFilterSheet({ visible, onClose, onApply }: Managem
     return (
   <BottomSheet visible={visible} onClose={onClose} title="Filtrele">
     <View style={{ marginBottom: 20 }}>
-      <Text style={{ fontSize: 12, color: '#666', marginBottom: 4 }}>Rol</Text>
+      <Text style={{ fontSize: 12, color: colors.gray600, marginBottom: 4 }}>Rol</Text>
       <Dropdown
         data={[
           { label: 'Admin', value: 'Admin' },
@@ -72,7 +73,7 @@ export function ManagementUserFilterSheet({ visible, onClose, onApply }: Managem
     </View>
 
     <View style={{ marginBottom: 20 }}>
-      <Text style={{ fontSize: 12, color: '#666', marginBottom: 4 }}>Durum</Text>
+      <Text style={{ fontSize: 12, color: colors.gray600, marginBottom: 4 }}>Durum</Text>
       <Dropdown
         data={[
           { label: 'Aktif', value: 'active' },
@@ -86,7 +87,7 @@ export function ManagementUserFilterSheet({ visible, onClose, onApply }: Managem
     </View>
 
     <View style={{ marginBottom: 20 }}>
-      <Text style={{ fontSize: 12, color: '#666', marginBottom: 4 }}>Bağlı Çalışan</Text>
+      <Text style={{ fontSize: 12, color: colors.gray600, marginBottom: 4 }}>Bağlı Çalışan</Text>
       <Dropdown
         data={employees.map((e) => ({
           label: `${e.firstName} ${e.lastName}    -    ${e.registrationNumber}`,
@@ -101,7 +102,7 @@ export function ManagementUserFilterSheet({ visible, onClose, onApply }: Managem
 
     <View style={{ flexDirection: 'row', gap: 10, marginTop: 20 }}>
       <View style={{ flex: 1 }}>
-        <Button title="Temizle" size="small" variant="secondary" textColor="#333" onPress={handleClear} />
+        <Button title="Temizle" size="small" variant="secondary" textColor={colors.gray800} onPress={handleClear} />
       </View>
       <View style={{ flex: 1 }}>
         <Button title="Uygula" size="small" onPress={handleApply} />

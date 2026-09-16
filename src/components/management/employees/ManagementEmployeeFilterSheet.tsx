@@ -7,6 +7,8 @@ import { Ionicons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useEffect, useState } from 'react';
 import { Alert, Pressable, Text, TextInput, View } from 'react-native';
+import { colors } from '@/constants/colors';
+
 
 type Department = {
     id: number;
@@ -135,7 +137,7 @@ export function ManagementEmployeeFilterSheet({ visible, onClose, onApply }: Man
                         autoCapitalize="none" />
                     {email.length > 0 && (
                         <Pressable onPress={() => setEmail('')}>
-                            <Ionicons name="close-circle" size={18} color="#999" />
+                            <Ionicons name="close-circle" size={18} color={colors.gray500} />
                         </Pressable>
                     )}
                 </View>
@@ -147,7 +149,7 @@ export function ManagementEmployeeFilterSheet({ visible, onClose, onApply }: Man
                     <TextInput style={styles.inputFlex} placeholder="Sicil No" value={registrationNumber} onChangeText={setRegistrationNumber} />
                     {registrationNumber.length > 0 && (
                         <Pressable onPress={() => setRegistrationNumber('')}>
-                            <Ionicons name="close-circle" size={18} color="#999" />
+                            <Ionicons name="close-circle" size={18} color={colors.gray500} />
                         </Pressable>
                     )}
                 </View>
@@ -161,7 +163,7 @@ export function ManagementEmployeeFilterSheet({ visible, onClose, onApply }: Man
                         <TextInput style={styles.inputFlex} placeholder="Min" value={minSalary} onChangeText={setMinSalary} keyboardType="number-pad" />
                         {minSalary.length > 0 && (
                             <Pressable onPress={() => setMinSalary('')}>
-                                <Ionicons name="close-circle" size={18} color="#999" />
+                                <Ionicons name="close-circle" size={18} color={colors.gray500} />
                             </Pressable>
                         )}
                     </View>
@@ -172,7 +174,7 @@ export function ManagementEmployeeFilterSheet({ visible, onClose, onApply }: Man
                         <TextInput style={styles.inputFlex} placeholder="Max" value={maxSalary} onChangeText={setMaxSalary} keyboardType="number-pad" />
                         {maxSalary.length > 0 && (
                             <Pressable onPress={() => setMaxSalary('')}>
-                                <Ionicons name="close-circle" size={18} color="#999" />
+                                <Ionicons name="close-circle" size={18} color={colors.gray500} />
                             </Pressable>
                         )}
                     </View>
@@ -192,7 +194,7 @@ export function ManagementEmployeeFilterSheet({ visible, onClose, onApply }: Man
                         />
                         {startHireDate && (
                             <Pressable onPress={() => setStartHireDate(undefined)}>
-                                <Ionicons name="close-circle" size={18} color="#999" />
+                                <Ionicons name="close-circle" size={18} color={colors.gray500} />
                             </Pressable>
                         )}
                     </View>
@@ -208,7 +210,7 @@ export function ManagementEmployeeFilterSheet({ visible, onClose, onApply }: Man
                         />
                         {endHireDate && (
                             <Pressable onPress={() => setEndHireDate(undefined)}>
-                                <Ionicons name="close-circle" size={18} color="#999" />
+                                <Ionicons name="close-circle" size={18} color={colors.gray500} />
                             </Pressable>
                         )}
                     </View>
@@ -257,7 +259,7 @@ export function ManagementEmployeeFilterSheet({ visible, onClose, onApply }: Man
 
             <View style={styles.buttonRow}>
                 <View style={styles.buttonHalf}>
-                    <Button title="Temizle" size="small" variant="secondary" textColor="#333" onPress={handleClear} />
+                    <Button title="Temizle" size="small" variant="secondary" textColor={colors.gray800} onPress={handleClear} />
                 </View>
                 <View style={styles.buttonHalf}>
                     <Button title="Uygula" size="small" onPress={handleApply} />

@@ -1,4 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { colors } from '@/constants/colors';
+
 
 export type ManagementEmployee = {
     id: number;
@@ -79,27 +81,27 @@ const styles = StyleSheet.create({
 
     headerRow: {
         flexDirection: 'row',
-        backgroundColor: '#d8d7d7',
+        backgroundColor: colors.tableHeaderBg,
         borderBottomWidth: 1,
-        borderBottomColor: '#ccc',
+        borderBottomColor: colors.gray400,
     },
 
     row: {
         flexDirection: 'row',
-        backgroundColor: 'white',
+        backgroundColor: colors.white,
         borderBottomWidth: 1,
-        borderColor: '#03021d',
+        borderColor: colors.borderDark,
         paddingBottom: 4,
     },
 
     rowSelected: {
-        backgroundColor: '#dbdbd6',
+        backgroundColor: colors.rowSelectedBg,
         flexDirection: 'row',
     },
 
     column: {
         borderRightWidth: 1,
-        borderRightColor: '#03021d',
+        borderRightColor: colors.borderDark,
     },
 
     cell: {
@@ -107,7 +109,7 @@ const styles = StyleSheet.create({
         height: 44,
         paddingHorizontal: 8,
         fontSize: 14,
-        color: '#222764',
+        color: colors.textNavy,
         lineHeight: 44,
     },
 
@@ -116,29 +118,29 @@ const styles = StyleSheet.create({
         height: 44,
         paddingHorizontal: 8,
         fontSize: 14,
-        color: 'black',
+        color: colors.black,
         lineHeight: 44,
     },
 
     rowCreated: {
         flexDirection: 'row',
-        backgroundColor: '#EAF3DE',
+        backgroundColor: colors.successBg,
         borderBottomWidth: 1,
-        borderColor: '#03021d',
+        borderColor: colors.borderDark,
         paddingBottom: 4,
     },
     rowUpdated: {
         flexDirection: 'row',
-        backgroundColor: '#FFF8E1',
+        backgroundColor: colors.warningBg,
         borderBottomWidth: 1,
-        borderColor: '#03021d',
+        borderColor: colors.borderDark,
         paddingBottom: 4,
     },
     rowDeleted: {
         flexDirection: 'row',
-        backgroundColor: '#FBEAEA',
+        backgroundColor: colors.dangerBg,
         borderBottomWidth: 1,
-        borderColor: '#03021d',
+        borderColor: colors.borderDark,
         paddingBottom: 4,
     },
 

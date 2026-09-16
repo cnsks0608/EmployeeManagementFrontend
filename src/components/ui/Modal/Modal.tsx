@@ -1,6 +1,8 @@
 import { Dimensions, Pressable, Modal as RNModal, ScrollView, StyleProp, StyleSheet, Text, View, ViewStyle } from 'react-native';
 // reactNative in kendi modal componentiyle karışmaması için onu rnmodal olarak import ettik
 import { useEffect, useState } from 'react';
+import { colors } from '@/constants/colors';
+
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: colors.overlay,
   },
 
   title: {
@@ -60,7 +62,7 @@ const styles = StyleSheet.create({
 
   },
   content: {
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     padding: 35,
     borderRadius: 12,
     gap: 12,

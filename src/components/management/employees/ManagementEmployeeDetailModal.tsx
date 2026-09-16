@@ -4,7 +4,7 @@ import { getEmployeeById } from '@/services/employeeService';
 import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
+import { colors } from '@/constants/colors';
 
 type ManagementEmployee = {
     id: number;
@@ -66,27 +66,27 @@ export function ManagementEmployeeDetailModal({ visible, onClose, employeeId, on
 
                     <View style={styles.infoSection}>
                         <View style={styles.infoRow}>
-                            <Ionicons name="card-outline" size={16} color="#999" />
+                            <Ionicons name="card-outline" size={16} color={colors.gray500} />
                             <Text style={styles.infoLabel}>Sicil No</Text>
                             <Text style={styles.infoValue}>{employee.registrationNumber}</Text>
                         </View>
                         <View style={styles.infoRow}>
-                            <Ionicons name="mail-outline" size={16} color="#999" />
+                            <Ionicons name="mail-outline" size={16} color={colors.gray500} />
                             <Text style={styles.infoLabel}>Email</Text>
                             <Text style={styles.infoValue}>{employee.email}</Text>
                         </View>
                         <View style={styles.infoRow}>
-                            <Ionicons name="cash-outline" size={16} color="#999" />
+                            <Ionicons name="cash-outline" size={16} color={colors.gray500} />
                             <Text style={styles.infoLabel}>Maaş</Text>
                             <Text style={styles.infoValue}>{employee.salary.toLocaleString()} ₺</Text>
                         </View>
                         <View style={styles.infoRow}>
-                            <Ionicons name="calendar-outline" size={16} color="#999" />
+                            <Ionicons name="calendar-outline" size={16} color={colors.gray500} />
                             <Text style={styles.infoLabel}>İşe Giriş</Text>
                             <Text style={styles.infoValue}>{employee.hireDate}</Text>
                         </View>
                         <View style={styles.infoRow}>
-                            <Ionicons name="checkmark-circle-outline" size={16} color="#999" />
+                            <Ionicons name="checkmark-circle-outline" size={16} color={colors.gray500} />
                             <Text style={styles.infoLabel}>Durum</Text>
                             <Text style={styles.infoValue}>{getStatusLabel(employee.rowStatus)}</Text>
                         </View>
@@ -95,15 +95,15 @@ export function ManagementEmployeeDetailModal({ visible, onClose, employeeId, on
                     <View style={styles.buttonRow}>
                         {employee?.rowStatus === 'Deleted' ? (
                             <View style={styles.buttonFull}>
-                                <Button title="Aktif Et" size="small" color="#EAF3DE" textColor="#3B6D11" onPress={onReactivate} />
+                                <Button title="Aktif Et" size="small" color={colors.successBg} textColor={colors.success} onPress={onReactivate} />
                             </View>
                         ) : (
                             <>
                                 <View style={styles.buttonHalf}>
-                                    <Button title="Düzenle" size="small" variant="secondary" textColor="#333" onPress={onEdit} />
+                                    <Button title="Düzenle" size="small" variant="secondary" textColor={colors.gray800} onPress={onEdit} />
                                 </View>
                                 <View style={styles.buttonHalf}>
-                                    <Button title="Sil" size="small" color="#FBEAEA" textColor="#C0392B" onPress={onDelete} />
+                                    <Button title="Sil" size="small" color={colors.dangerBg} textColor={colors.dangerText} onPress={onDelete} />
                                 </View>
                             </>
                         )}
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
         width: 72,
         height: 72,
         borderRadius: 36,
-        backgroundColor: '#E6F1FB',
+        backgroundColor: colors.primaryBg,
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 10,
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     avatarText: {
         fontSize: 24,
         fontWeight: '600',
-        color: '#185FA5',
+        color: colors.primary,
     },
     name: {
         fontSize: 18,
@@ -143,11 +143,11 @@ const styles = StyleSheet.create({
     },
     subtitle: {
         fontSize: 14,
-        color: '#666',
+        color: colors.gray600,
     },
     infoSection: {
         borderTopWidth: 1,
-        borderTopColor: '#eee',
+        borderTopColor: colors.gray300,
         paddingTop: 16,
         gap: 14,
     },
@@ -158,12 +158,12 @@ const styles = StyleSheet.create({
     },
     infoLabel: {
         fontSize: 13,
-        color: '#666',
+        color: colors.gray600,
         width: 80,
     },
     infoValue: {
         fontSize: 13,
-        color: '#333',
+        color: colors.gray800,
         flex: 1,
     },
     modalSize: {
@@ -182,5 +182,3 @@ const styles = StyleSheet.create({
         flex: 1,
     },
 });
-
-

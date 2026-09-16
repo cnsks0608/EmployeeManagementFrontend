@@ -1,6 +1,8 @@
 import { Modal } from '@/components/ui/Modal/Modal';
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, Text, View } from 'react-native';
+import { colors } from '@/constants/colors';
+
 
 type ActivityLog = {
     id: number;
@@ -33,19 +35,19 @@ function formatDate(dateString: string) {
 function getActionStyle(action: string) {
     switch (action) {
         case 'Login':
-            return { icon: 'log-in-outline' as const, bgColor: '#EAF3DE', iconColor: '#3B6D11' };
+            return { icon: 'log-in-outline' as const, bgColor: colors.logLoginBg, iconColor: colors.logLoginIcon };
         case 'Logout':
-            return { icon: 'log-out-outline' as const, bgColor: '#FAEEDA', iconColor: '#666' };
+            return { icon: 'log-out-outline' as const, bgColor: colors.logLogoutBg, iconColor: colors.logLogoutIcon };
         case 'Create':
-            return { icon: 'add-circle-outline' as const, bgColor: '#E6F1FB', iconColor: '#185FA5' };
+            return { icon: 'add-circle-outline' as const, bgColor: colors.logCreateBg, iconColor: colors.logCreateIcon };
         case 'Update':
-            return { icon: 'create-outline' as const, bgColor: '#FAEEDA', iconColor: '#854F0B' };
+            return { icon: 'create-outline' as const, bgColor: colors.logUpdateBg, iconColor: colors.logUpdateIcon};
         case 'Delete':
-            return { icon: 'trash-outline' as const, bgColor: '#FBEAEA', iconColor: '#C0392B' };
+            return { icon: 'trash-outline' as const, bgColor: colors.logDeleteBg, iconColor: colors.logDeleteIcon };
         case 'Read':
-            return { icon: 'eye-outline' as const, bgColor: '#EEEDFE', iconColor: '#666' };
+            return { icon: 'eye-outline' as const, bgColor: colors.logReadBg, iconColor: colors.logReadIcon };
         default:
-            return { icon: 'ellipse-outline' as const, bgColor: '#f0f0f0', iconColor: '#666' };
+            return { icon: 'ellipse-outline' as const, bgColor: colors.logDefaultBg, iconColor: colors.logDefaultIcon };
     }
 }
 
@@ -69,22 +71,22 @@ export function ManagementActivityLogDetailModal({ visible, onClose, selectedAct
 
                     <View style={styles.infoSection}>
                         <View style={styles.infoRow}>
-                            <Ionicons name="person-outline" size={16} color="#999" />
+                            <Ionicons name="person-outline" size={16} color={colors.gray500} />
                             <Text style={styles.infoLabel}>Kullanıcı</Text>
                             <Text style={styles.infoValue}>{selectedActivityLog.username || '-'}</Text>
                         </View>
                         <View style={styles.infoRow}>
-                            <Ionicons name="pricetag-outline" size={16} color="#999" />
+                            <Ionicons name="pricetag-outline" size={16} color={colors.gray500} />
                             <Text style={styles.infoLabel}>Hedef</Text>
                             <Text style={styles.infoValue}>{selectedActivityLog.targetName || '-'}</Text>
                         </View>
                         <View style={styles.infoRow}>
-                            <Ionicons name="checkmark-circle-outline" size={16} color="#999" />
+                            <Ionicons name="checkmark-circle-outline" size={16} color={colors.gray500} />
                             <Text style={styles.infoLabel}>Durum</Text>
                             <Text style={styles.infoValue}>{selectedActivityLog.isSuccess ? 'Başarılı' : 'Başarısız'}</Text>
                         </View>
                         <View style={styles.infoRow}>
-                            <Ionicons name="calendar-outline" size={16} color="#999" />
+                            <Ionicons name="calendar-outline" size={16} color={colors.gray500} />
                             <Text style={styles.infoLabel}>Tarih</Text>
                             <Text style={styles.infoValue}>{formatDate(selectedActivityLog.createdAt)}</Text>
                         </View>
@@ -98,7 +100,7 @@ export function ManagementActivityLogDetailModal({ visible, onClose, selectedAct
                     {selectedActivityLog.failureReason && (
                         <View style={styles.descriptionSection}>
                             <Text style={styles.descriptionLabel}>Hata Nedeni</Text>
-                            <Text style={[styles.descriptionText, { color: '#C0392B' }]}>{selectedActivityLog.failureReason}</Text>
+                            <Text style={[styles.descriptionText, { color: colors.dangerText }]}>{selectedActivityLog.failureReason}</Text>
                         </View>
                     )}
                 </View>
@@ -118,7 +120,7 @@ const styles = StyleSheet.create({
     },
     infoSection: {
         borderTopWidth: 1,
-        borderTopColor: '#eee',
+        borderTopColor: colors.borderLight,
         paddingTop: 16,
         gap: 14,
     },
@@ -129,27 +131,27 @@ const styles = StyleSheet.create({
     },
     infoLabel: {
         fontSize: 13,
-        color: '#666',
+        color: colors.gray600,
         width: 80,
     },
     infoValue: {
         fontSize: 13,
-        color: '#333',
+        color: colors.gray800,
         flex: 1
     },
     descriptionSection: {
         borderTopWidth: 1,
-        borderTopColor: '#eee',
+        borderTopColor: colors.borderLight,
         paddingTop: 16,
     },
     descriptionLabel: {
         fontSize: 12,
-        color: '#666',
+        color: colors.gray600,
         marginBottom: 6,
     },
     descriptionText: {
         fontSize: 14,
-        color: '#333',
+        color: colors.gray800,
         lineHeight: 20,
     },
     modalSize: {
@@ -173,6 +175,6 @@ const styles = StyleSheet.create({
     },
     statusText: {
         fontSize: 13,
-        color: '#666',
+        color: colors.gray600,
     },
 });

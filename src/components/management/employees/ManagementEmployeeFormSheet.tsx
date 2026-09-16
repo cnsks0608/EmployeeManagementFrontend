@@ -8,6 +8,8 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { useEffect, useState } from 'react';
 import { Alert, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import Toast from 'react-native-toast-message';
+import { colors } from '@/constants/colors';
+
 
 type Department = {
   id: number;
@@ -230,7 +232,7 @@ export function ManagementEmployeeFormSheet({ visible, onClose, onSuccess, mode,
           <TextInput style={styles.inputFlex} placeholder="Sicil No" value={registrationNumber} onChangeText={setRegistrationNumber} autoCapitalize="none" />
           {registrationNumber.length > 0 && (
             <Pressable onPress={() => setRegistrationNumber('')}>
-              <Ionicons name="close-circle" size={18} color="#999" />
+              <Ionicons name="close-circle" size={18} color={colors.gray500} />
             </Pressable>
           )}
         </View>
@@ -243,7 +245,7 @@ export function ManagementEmployeeFormSheet({ visible, onClose, onSuccess, mode,
             <TextInput style={styles.inputFlex} placeholder="Ad" value={firstName} onChangeText={setFirstName} />
             {firstName.length > 0 && (
               <Pressable onPress={() => setFirstName('')}>
-                <Ionicons name="close-circle" size={18} color="#999" />
+                <Ionicons name="close-circle" size={18} color={colors.gray500} />
               </Pressable>
             )}
           </View>
@@ -254,7 +256,7 @@ export function ManagementEmployeeFormSheet({ visible, onClose, onSuccess, mode,
             <TextInput style={styles.inputFlex} placeholder="Soyad" value={lastName} onChangeText={setLastName} />
             {lastName.length > 0 && (
               <Pressable onPress={() => setLastName('')}>
-                <Ionicons name="close-circle" size={18} color="#999" />
+                <Ionicons name="close-circle" size={18} color={colors.gray500} />
               </Pressable>
             )}
           </View>
@@ -267,7 +269,7 @@ export function ManagementEmployeeFormSheet({ visible, onClose, onSuccess, mode,
           <TextInput style={styles.inputFlex} placeholder="Email" value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" />
           {email.length > 0 && (
             <Pressable onPress={() => setEmail('')}>
-              <Ionicons name="close-circle" size={18} color="#999" />
+              <Ionicons name="close-circle" size={18} color={colors.gray500} />
             </Pressable>
           )}
         </View>
@@ -279,7 +281,7 @@ export function ManagementEmployeeFormSheet({ visible, onClose, onSuccess, mode,
           <TextInput style={styles.inputFlex} placeholder="Maaş" value={salary} onChangeText={setSalary} keyboardType="number-pad" />
           {salary.length > 0 && (
             <Pressable onPress={() => setSalary('')}>
-              <Ionicons name="close-circle" size={18} color="#999" />
+              <Ionicons name="close-circle" size={18} color={colors.gray500} />
             </Pressable>
           )}
         </View>
@@ -296,7 +298,7 @@ export function ManagementEmployeeFormSheet({ visible, onClose, onSuccess, mode,
           />
           {hireDate && (
             <Pressable onPress={() => setHireDate(undefined)}>
-              <Ionicons name="close-circle" size={18} color="#999" />
+              <Ionicons name="close-circle" size={18} color={colors.gray500} />
             </Pressable>
           )}
         </View>
@@ -333,7 +335,7 @@ export function ManagementEmployeeFormSheet({ visible, onClose, onSuccess, mode,
 
       <View style={styles.buttonRow}>
         <View style={styles.buttonHalf}>
-          <Button title="İptal" size="small" variant="secondary" textColor="#333" onPress={handleCancel} />
+          <Button title="İptal" size="small" variant="secondary" textColor={colors.gray800} onPress={handleCancel} />
         </View>
         <View style={styles.buttonHalf}>
           <Button title="Kaydet" size="small" onPress={handleSave} />
@@ -354,12 +356,12 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 12,
-    color: '#666',
+    color: colors.gray600,
     marginBottom: 4,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colors.gray400,
     borderRadius: 8,
     padding: 8,
     fontSize: 14,
@@ -377,14 +379,14 @@ const styles = StyleSheet.create({
   },
   dateLabel: {
     fontSize: 12,
-    color: '#666',
+    color: colors.gray600,
     marginBottom: 6,
   },
   inputWithClear: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colors.gray400,
     borderRadius: 8,
     paddingHorizontal: 10,
   },

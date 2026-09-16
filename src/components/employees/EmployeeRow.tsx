@@ -1,4 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { colors } from '@/constants/colors';
+
 
 export type Employee = {
   id: number;
@@ -56,26 +58,26 @@ const styles = StyleSheet.create({
 
   headerRow: {
     flexDirection: 'row',
-    backgroundColor: '#d8d7d7',
+    backgroundColor: colors.grayHeader,
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    borderBottomColor: colors.gray400,
   },
 
   row: {
     flexDirection: 'row',
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     borderBottomWidth: 1,
-    borderColor: '#03021d',
+    borderColor: colors.navyDark,
     paddingBottom: 4,
   },
 
   rowSelected: {
-    backgroundColor: '#dbdbd6',
+    backgroundColor: colors.graySelected,
   },
 
   column: {
     borderRightWidth: 1,
-    borderRightColor: '#03021d',
+    borderRightColor: colors.navyDark,
   },
 
   cell: {
@@ -83,7 +85,7 @@ const styles = StyleSheet.create({
     height: 44,
     paddingHorizontal: 8,
     fontSize: 14,
-    color: '#222764',
+    color: colors.navyPrimary,
     lineHeight: 44,
   },
 
@@ -92,7 +94,7 @@ const styles = StyleSheet.create({
     height: 44,
     paddingHorizontal: 8,
     fontSize: 14,
-    color: 'black',
+    color: colors.black,
     lineHeight: 44,
   },
 

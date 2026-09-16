@@ -8,6 +8,7 @@ import { router } from 'expo-router';
 import { Button } from '@/components/ui/Button/Button';
 import { AccountDetailModal } from '@/components/profile/AccountDetailModal';
 import { profileStyles as styles } from '@/styles/profile.styles';
+import { colors } from '@/constants/colors';
 
 
 export default function ProfileScreen() {
@@ -78,10 +79,10 @@ export default function ProfileScreen() {
         <Pressable style={styles.card} onPress={() => setAccountModalVisible(true)}>
           <View style={styles.cardHeader}>
             <View style={styles.cardTitleGroup}>
-              <Ionicons name="person-circle-outline" size={20} color="#185FA5" />
+              <Ionicons name="person-circle-outline" size={20} color={colors.primary} />
               <Text style={styles.cardTitle}>Hesap Bilgileri</Text>
             </View>
-            <Ionicons name="chevron-forward" size={18} color="#999" />
+            <Ionicons name="chevron-forward" size={18} color={colors.gray500} />
           </View>
 
           <View style={styles.row}>
@@ -98,7 +99,7 @@ export default function ProfileScreen() {
         <View style={styles.card}>
           <View style={styles.cardHeader}>
             <View style={styles.cardTitleGroup}>
-              <Ionicons name="briefcase-outline" size={20} color="#3B6D11" />
+              <Ionicons name="briefcase-outline" size={20} color={colors.success} />
               <Text style={styles.cardTitle}>Çalışan Bilgileri</Text>
             </View>
           </View>
@@ -138,7 +139,7 @@ export default function ProfileScreen() {
         </View>
 
         <View style={styles.logoutWrapper}>
-          <Button title="Çıkış Yap" color="#FBEAEA" textColor="#C0392B" size="large" onPress={handleLogout} />
+          <Button title="Çıkış Yap" color={colors.dangerBg} textColor={colors.danger} size="large" onPress={handleLogout} />
         </View>
       </ScrollView>
 

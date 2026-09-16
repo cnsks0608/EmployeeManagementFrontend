@@ -55,14 +55,8 @@ export function EmployeeSortModal({ visible, onClose, onApply, currentSortBy, cu
 }
 
 const styles = StyleSheet.create({
-    optionsContainer: {
-        gap: 10,
-    },
     modalSize: {
         width: 280,
-    },
-    scrollArea: {
-        maxHeight: 250,
     },
 });
 

@@ -13,6 +13,7 @@ import { router, Stack } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Alert, Pressable, ScrollView, Text, TextInput, View } from 'react-native';
 import Toast from 'react-native-toast-message';
+import { colors } from '@/constants/colors';
 
 
 export default function ManagementEmployeesScreen() {
@@ -134,7 +135,7 @@ export default function ManagementEmployeesScreen() {
           title: 'Yönetim / Çalışanlar',
           headerLeft: () => (
             <Pressable onPress={() => router.push('/(tabs)/management')}>
-              <Ionicons name="chevron-back" size={24} color="#333" />
+              <Ionicons name="chevron-back" size={24} color={colors.gray800} />
             </Pressable>
           ),
         }}
@@ -145,8 +146,8 @@ export default function ManagementEmployeesScreen() {
           <Button
             title="+ Çalışan Ekle"
             size="small"
-            color="#E6F1FB"
-            textColor="#185FA5"
+            color={colors.primaryBg}
+            textColor={colors.primary}
             onPress={() => {
               setFormMode('create');
               setFormVisible(true);
@@ -166,15 +167,15 @@ export default function ManagementEmployeesScreen() {
             />
             {searchText.length > 0 && (
               <Pressable onPress={() => setSearchText('')}>
-                <Ionicons name="close-circle" size={18} color="#999" />
+                <Ionicons name="close-circle" size={18} color={colors.gray500} />
               </Pressable>
             )}
           </View>
           <View style={employeesStyles.iconGroup}>
-            <Button icon="options-outline" size="small" iconColor="gray" color="transparent" onPress={() => setFilterModalVisible(true)} />
-            <Button icon="swap-vertical-outline" size="small" iconColor="gray" color="transparent" onPress={() => setSortModalVisible(true)} />
+            <Button icon="options-outline" size="small" iconColor={colors.gray500} color={colors.transparent} onPress={() => setFilterModalVisible(true)} />
+            <Button icon="swap-vertical-outline" size="small" iconColor={colors.gray500} color={colors.transparent} onPress={() => setSortModalVisible(true)} />
           </View>
-          <Button title="Ara" color="#B0B0B0" size="small" onPress={handleSearch} />
+          <Button title="Ara" color={colors.gray500} size="small" onPress={handleSearch} />
         </View>
 
         <Text style={employeesStyles.resultCount}>{totalCount} kayıt bulundu</Text>

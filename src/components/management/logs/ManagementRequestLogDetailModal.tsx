@@ -1,6 +1,7 @@
 import { Modal } from '@/components/ui/Modal/Modal';
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, Text, View } from 'react-native';
+import { colors } from '@/constants/colors';
 
 type RequestLog = {
     id: number;
@@ -33,15 +34,15 @@ function formatDate(dateString: string) {
 function getMethodStyle(httpMethod: string) {
     switch (httpMethod) {
         case 'GET':
-            return { icon: 'download-outline' as const, bgColor: '#E6F1FB', iconColor: '#185FA5' };
+            return { icon: 'download-outline' as const, bgColor: colors.methodGetBg, iconColor: colors.methodGetIcon};
         case 'POST':
-            return { icon: 'add-circle-outline' as const, bgColor: '#EAF3DE', iconColor: '#3B6D11' };
+            return { icon: 'add-circle-outline' as const, bgColor: colors.methodPostBg, iconColor: colors.methodPostIcon };
         case 'PUT':
-            return { icon: 'create-outline' as const, bgColor: '#FAEEDA', iconColor: '#854F0B' };
+            return { icon: 'create-outline' as const, bgColor: colors.methodPutBg, iconColor: colors.methodPutIcon };
         case 'DELETE':
-            return { icon: 'trash-outline' as const, bgColor: '#FBEAEA', iconColor: '#C0392B' };
+            return { icon: 'trash-outline' as const, bgColor: colors.methodDeleteBg, iconColor: colors.methodDeleteIcon };
         default:
-            return { icon: 'ellipse-outline' as const, bgColor: '#f0f0f0', iconColor: '#666' };
+            return { icon: 'ellipse-outline' as const, bgColor: colors.methodDefaultBg, iconColor: colors.methodDefaultIcon };
     }
 }
 
@@ -64,17 +65,17 @@ export function ManagementRequestLogDetailModal({ visible, onClose, selectedRequ
 
                     <View style={styles.infoSection}>
                         <View style={styles.infoRow}>
-                            <Ionicons name="person-outline" size={16} color="#999" />
+                            <Ionicons name="person-outline" size={16} color={colors.gray500} />
                             <Text style={styles.infoLabel}>Kullanıcı</Text>
                             <Text style={styles.infoValue}>{selectedRequestLog.username || '-'}</Text>
                         </View>
                         <View style={styles.infoRow}>
-                            <Ionicons name="link-outline" size={16} color="#999" />
+                            <Ionicons name="link-outline" size={16} color={colors.gray500} />
                             <Text style={styles.infoLabel}>Yol</Text>
                             <Text style={styles.infoValue}>{selectedRequestLog.path}</Text>
                         </View>
                         <View style={styles.infoRow}>
-                            <Ionicons name="calendar-outline" size={16} color="#999" />
+                            <Ionicons name="calendar-outline" size={16} color={colors.gray500} />
                             <Text style={styles.infoLabel}>Tarih</Text>
                             <Text style={styles.infoValue}>{formatDate(selectedRequestLog.createdAt)}</Text>
                         </View>
@@ -121,11 +122,11 @@ const styles = StyleSheet.create({
     },
     statusText: {
         fontSize: 13,
-        color: '#666',
+        color: colors.gray600,
     },
     infoSection: {
         borderTopWidth: 1,
-        borderTopColor: '#eee',
+        borderTopColor: colors.borderLight,
         paddingTop: 16,
         gap: 14,
     },
@@ -136,27 +137,27 @@ const styles = StyleSheet.create({
     },
     infoLabel: {
         fontSize: 13,
-        color: '#666',
+        color: colors.gray600,
         width: 80,
     },
     infoValue: {
         fontSize: 13,
-        color: '#333',
+        color: colors.gray800,
         flex: 1,
     },
     descriptionSection: {
         borderTopWidth: 1,
-        borderTopColor: '#eee',
+        borderTopColor: colors.borderLight,
         paddingTop: 16,
     },
     descriptionLabel: {
         fontSize: 12,
-        color: '#666',
+        color: colors.gray600,
         marginBottom: 6,
     },
     descriptionText: {
         fontSize: 14,
-        color: '#333',
+        color: colors.gray800,
         lineHeight: 20,
     },
     modalSize: {

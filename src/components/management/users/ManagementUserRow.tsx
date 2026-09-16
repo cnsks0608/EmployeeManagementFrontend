@@ -1,4 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { colors} from '@/constants/colors';
+
 
 export type ManagementUser = {
   id: number;
@@ -70,30 +72,30 @@ const styles = StyleSheet.create({
 
   headerRow: {
     flexDirection: 'row',
-    backgroundColor: '#d8d7d7',
+    backgroundColor: colors.tableHeaderBg,
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    borderBottomColor: colors.borderDefault,
   },
 
   row: {
     flexDirection: 'row',
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     borderBottomWidth: 1,
-    borderColor: '#03021d',
+    borderColor: colors.borderDark,
     paddingBottom: 4,
   },
 
   rowSelected: {
     flexDirection: 'row',
-    backgroundColor: '#dbdbd6',
+    backgroundColor: colors.rowSelectedBg,
     borderBottomWidth: 1,
-    borderColor: '#03021d',
+    borderColor: colors.borderDark,
     paddingBottom: 4,
   },
 
   column: {
     borderRightWidth: 1,
-    borderRightColor: '#03021d',
+    borderRightColor: colors.borderDark,
   },
 
   cell: {
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
     height: 44,
     paddingHorizontal: 8,
     fontSize: 14,
-    color: '#222764',
+    color: colors.textNavy,
     lineHeight: 44,
   },
 
@@ -110,29 +112,29 @@ const styles = StyleSheet.create({
     height: 44,
     paddingHorizontal: 8,
     fontSize: 14,
-    color: 'black',
+    color: colors.black,
     lineHeight: 44,
   },
 
   rowCreated: {
     flexDirection: 'row',
-    backgroundColor: '#EAF3DE',
+    backgroundColor: colors.rowSuccessBg,
     borderBottomWidth: 1,
-    borderColor: '#03021d',
+    borderColor: colors.borderDark,
     paddingBottom: 4,
   },
   rowUpdated: {
     flexDirection: 'row',
-    backgroundColor: '#FFF8E1',
+    backgroundColor: colors.rowUpdatedBg,
     borderBottomWidth: 1,
-    borderColor: '#03021d',
+    borderColor: colors.borderDark,
     paddingBottom: 4,
   },
   rowDeleted: {
     flexDirection: 'row',
-    backgroundColor: '#FBEAEA',
+    backgroundColor: colors.rowFailedBg,
     borderBottomWidth: 1,
-    borderColor: '#03021d',
+    borderColor: colors.borderDark,
     paddingBottom: 4,
   },
 });

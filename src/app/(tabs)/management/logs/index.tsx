@@ -15,7 +15,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { router, Stack } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, Text, View } from 'react-native';
-
+import { colors } from '@/constants/colors';
 
 export default function ManagementLogsScreen() {
   const [activeTab, setActiveTab] = useState<'activity' | 'request'>('activity');
@@ -58,7 +58,7 @@ export default function ManagementLogsScreen() {
           title: 'Yönetim / Loglar',
           headerLeft: () => (
             <Pressable onPress={() => router.push('/(tabs)/management')}>
-              <Ionicons name="chevron-back" size={24} color="#333" />
+              <Ionicons name="chevron-back" size={24} color={colors.gray800} />
             </Pressable>
           ),
         }}
@@ -66,7 +66,7 @@ export default function ManagementLogsScreen() {
 
       <View style={{ flex: 1, padding: 10 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16 }}>
-          <View style={{ flexDirection: 'row', backgroundColor: '#f0f0f0', borderRadius: 8, padding: 3, gap: 2 }}>
+          <View style={{ flexDirection: 'row', backgroundColor: colors.gray100, borderRadius: 8, padding: 3, gap: 2 }}>
             <Pressable
               onPress={() => {
                 setActiveTab('activity');
@@ -76,7 +76,7 @@ export default function ManagementLogsScreen() {
                 paddingVertical: 6,
                 paddingHorizontal: 14,
                 borderRadius: 6,
-                backgroundColor: activeTab === 'activity' ? 'white' : 'transparent',
+                backgroundColor: activeTab === 'activity' ? colors.white : colors.transparent,
               }}
             >
               <Text style={{ fontSize: 13, fontWeight: activeTab === 'activity' ? '600' : '400' }}>Aktivite</Text>
@@ -90,7 +90,7 @@ export default function ManagementLogsScreen() {
                 paddingVertical: 6,
                 paddingHorizontal: 14,
                 borderRadius: 6,
-                backgroundColor: activeTab === 'request' ? 'white' : 'transparent',
+                backgroundColor: activeTab === 'request' ? colors.white : colors.transparent,
               }}
             >
               <Text style={{ fontSize: 13, fontWeight: activeTab === 'request' ? '600' : '400' }}>İstek</Text>
@@ -98,8 +98,8 @@ export default function ManagementLogsScreen() {
           </View>
 
           <View style={{ flexDirection: 'row', gap: -8 }}>
-            <Button icon="options-outline" size="small" iconColor="gray" color="transparent" onPress={() => setFilterModalVisible(true)} />
-            <Button icon="swap-vertical-outline" size="small" iconColor="gray" color="transparent" onPress={() => setSortModalVisible(true)} />
+            <Button icon="options-outline" size="small" iconColor={colors.gray500} color={colors.transparent} onPress={() => setFilterModalVisible(true)} />
+            <Button icon="swap-vertical-outline" size="small" iconColor={colors.gray500} color={colors.transparent} onPress={() => setSortModalVisible(true)} />
           </View>
         </View>
 
@@ -211,4 +211,3 @@ export default function ManagementLogsScreen() {
     </>
   );
 }
-

@@ -4,6 +4,7 @@ import { getEmployeeById } from '@/services/employeeService';
 import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { colors } from '@/constants/colors';
 
 
 type EmployeeDetailModalProps = {
@@ -43,17 +44,17 @@ export function EmployeeDetailModal({ visible, onClose, employeeId }: EmployeeDe
 
                     <View style={styles.infoSection}>
                         <View style={styles.infoRow}>
-                            <Ionicons name="card-outline" size={16} color="#999" />
+                            <Ionicons name="card-outline" size={16} color={colors.gray500} />
                             <Text style={styles.infoLabel}>Sicil No</Text>
                             <Text style={styles.infoValue}>{employee.registrationNumber}</Text>
                         </View>
                         <View style={styles.infoRow}>
-                            <Ionicons name="mail-outline" size={16} color="#999" />
+                            <Ionicons name="mail-outline" size={16} color={colors.gray500} />
                             <Text style={styles.infoLabel}>Email</Text>
                             <Text style={styles.infoValue}>{employee.email}</Text>
                         </View>
                         <View style={styles.infoRow}>
-                            <Ionicons name="calendar-outline" size={16} color="#999" />
+                            <Ionicons name="calendar-outline" size={16} color={colors.gray500} />
                             <Text style={styles.infoLabel}>İşe Giriş</Text>
                             <Text style={styles.infoValue}>{employee.hireDate}</Text>
                         </View>
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
         width: 72,
         height: 72,
         borderRadius: 36,
-        backgroundColor: '#E6F1FB',
+        backgroundColor: colors.blueLight,
         alignItems: 'center',
         justifyContent: 'center',
         marginBottom: 10,
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
     avatarText: {
         fontSize: 24,
         fontWeight: '600',
-        color: '#185FA5',
+        color: colors.bluePrimary,
     },
     name: {
         fontSize: 18,
@@ -92,11 +93,11 @@ const styles = StyleSheet.create({
     },
     subtitle: {
         fontSize: 14,
-        color: '#666',
+        color: colors.gray600,
     },
     infoSection: {
         borderTopWidth: 1,
-        borderTopColor: '#eee',
+        borderTopColor: colors.gray300,
         paddingTop: 16,
         gap: 18,
     },
@@ -107,12 +108,12 @@ const styles = StyleSheet.create({
     },
     infoLabel: {
         fontSize: 13,
-        color: '#666',
+        color: colors.gray600,
         width: 80,
     },
     infoValue: {
         fontSize: 13,
-        color: '#333',
+        color: colors.gray800,
         flex: 1,
     },
     modalSize: {

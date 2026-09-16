@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui/Button/Button';
 import { useEffect, useState } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
+import { colors } from '@/constants/colors';
 
 type PaginationProps = {
   currentPage: number;
@@ -27,8 +28,8 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
       <Button
         title="<"
         size="small"
-        color="transparent"
-        textColor="#333"
+        color={colors.transparent}
+        textColor={colors.gray800}
         disabled={currentPage === 1}
         onPress={() => onPageChange(currentPage - 1)}
       />
@@ -45,8 +46,8 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
       <Button
         title=">"
         size="small"
-        color="transparent"
-        textColor="#333"
+        color={colors.transparent}
+        textColor={colors.gray800}
         disabled={currentPage === totalPages}
         onPress={() => onPageChange(currentPage + 1)}
       />
@@ -62,18 +63,18 @@ const styles = StyleSheet.create({
     gap: 8,
     paddingVertical: 6,
     borderTopWidth: 1,
-    borderTopColor: '#eee',
-    backgroundColor: '#f9f9f9',
+    borderTopColor: colors.borderLight,
+    backgroundColor: colors.gray100,
   },
   pageInput: {
     width: 44,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colors.gray400,
     borderRadius: 6,
     padding: 6,
     textAlign: 'center',
   },
   totalText: {
-    color: '#666',
+    color: colors.gray600,
   },
 });

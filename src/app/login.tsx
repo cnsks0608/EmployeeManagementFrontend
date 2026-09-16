@@ -7,6 +7,7 @@ import * as SecureStore from 'expo-secure-store';
 import { useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
 import Toast from 'react-native-toast-message';
+import { colors } from '@/constants/colors';
 
 
 export default function LoginScreen() {
@@ -58,7 +59,7 @@ export default function LoginScreen() {
             <Ionicons
               name={showPassword ? 'eye-off' : 'eye'}
               size={22}
-              color="#666"
+              color={colors.gray600}
             />
           </Pressable>
         </View>

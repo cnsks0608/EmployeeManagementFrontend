@@ -7,6 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import { Alert, Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
 import Toast from 'react-native-toast-message';
+import { colors } from '@/constants/colors';
 
 type Employee = {
   id: number;
@@ -188,7 +189,7 @@ export function ManagementUserFormSheet({ visible, onClose, onSuccess, mode, ini
           <TextInput style={styles.inputFlex} placeholder="Kullanıcı Adı" value={username} onChangeText={setUsername} autoCapitalize="none" />
           {username.length > 0 && (
             <Pressable onPress={() => setUsername('')}>
-              <Ionicons name="close-circle" size={18} color="#999" />
+              <Ionicons name="close-circle" size={18} color={colors.gray500}/>
             </Pressable>
           )}
         </View>
@@ -202,11 +203,11 @@ export function ManagementUserFormSheet({ visible, onClose, onSuccess, mode, ini
             <View style={styles.inputWithClear}>
               <TextInput style={styles.inputFlex} placeholder="Şifre" value={password} onChangeText={setPassword} secureTextEntry={!showPassword} autoCapitalize="none" />
               <Pressable onPress={() => setShowPassword(!showPassword)}>
-                <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={18} color="#999" />
+                <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={18} color={colors.gray500} />
               </Pressable>
               {password.length > 0 && (
                 <Pressable onPress={() => setPassword('')}>
-                  <Ionicons name="close-circle" size={18} color="#999" />
+                  <Ionicons name="close-circle" size={18} color={colors.gray500} />
                 </Pressable>
               )}
             </View>
@@ -216,11 +217,11 @@ export function ManagementUserFormSheet({ visible, onClose, onSuccess, mode, ini
             <View style={styles.inputWithClear}>
               <TextInput style={styles.inputFlex} placeholder="Şifre Onay" value={confirmPassword} onChangeText={setConfirmPassword} secureTextEntry={!showConfirmPassword} autoCapitalize="none" />
               <Pressable onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
-                <Ionicons name={showConfirmPassword ? 'eye-off' : 'eye'} size={18} color="#999" />
+                <Ionicons name={showConfirmPassword ? 'eye-off' : 'eye'} size={18} color={colors.gray500} />
               </Pressable>
               {confirmPassword.length > 0 && (
                 <Pressable onPress={() => setConfirmPassword('')}>
-                  <Ionicons name="close-circle" size={18} color="#999" />
+                  <Ionicons name="close-circle" size={18} color={colors.gray500} />
                 </Pressable>
               )}
             </View>
@@ -261,7 +262,7 @@ export function ManagementUserFormSheet({ visible, onClose, onSuccess, mode, ini
 
       <View style={styles.buttonRow}>
         <View style={styles.buttonHalf}>
-          <Button title="İptal" size="small" variant="secondary" textColor="#333" onPress={handleCancel} />
+          <Button title="İptal" size="small" variant="secondary" textColor={colors.gray800} onPress={handleCancel} />
         </View>
         <View style={styles.buttonHalf}>
           <Button title="Kaydet" size="small" onPress={handleSave} />
@@ -277,7 +278,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 12,
-    color: '#666',
+    color: colors.gray600,
     marginBottom: 4,
   },
   twoColumnRow: {
@@ -292,7 +293,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colors.borderDefault,
     borderRadius: 8,
     paddingHorizontal: 10,
     gap: 6,

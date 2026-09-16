@@ -5,6 +5,8 @@ import { Ionicons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { colors } from '@/constants/colors';
+
 
 type ActivityLogFilters = {
     username?: string;
@@ -65,7 +67,7 @@ export function ManagementActivityLogFilterSheet({ visible, onClose, onApply }: 
                     <TextInput style={styles.inputFlex} placeholder="Kullanıcı Adı" value={username} onChangeText={setUsername} autoCapitalize="none" />
                     {username.length > 0 && (
                         <Pressable onPress={() => setUsername('')}>
-                            <Ionicons name="close-circle" size={18} color="#999" />
+                            <Ionicons name="close-circle" size={18} color={colors.gray500} />
                         </Pressable>
                     )}
                 </View>
@@ -77,7 +79,7 @@ export function ManagementActivityLogFilterSheet({ visible, onClose, onApply }: 
                     <TextInput style={styles.inputFlex} placeholder="Hedef Adı" value={targetName} onChangeText={setTargetName} autoCapitalize="none" />
                     {targetName.length > 0 && (
                         <Pressable onPress={() => setTargetName('')}>
-                            <Ionicons name="close-circle" size={18} color="#999" />
+                            <Ionicons name="close-circle" size={18} color={colors.gray500} />
                         </Pressable>
                     )}
                 </View>
@@ -110,29 +112,29 @@ export function ManagementActivityLogFilterSheet({ visible, onClose, onApply }: 
                         onPress={() => setIsSuccess(isSuccess === true ? undefined : true)}
                         style={{
                             flex: 1,
-                            backgroundColor: isSuccess === true ? '#E6F1FB' : 'transparent',
+                            backgroundColor: isSuccess === true ? colors.filterActiveBg : colors.transparent,
                             borderWidth: isSuccess === true ? 0 : 1,
-                            borderColor: '#ccc',
+                            borderColor: colors.borderDefault,
                             borderRadius: 8,
                             paddingVertical: 8,
                             alignItems: 'center',
                         }}
                     >
-                        <Text style={{ fontSize: 13, color: isSuccess === true ? '#185FA5' : '#666', fontWeight: isSuccess === true ? '600' : '400' }}>Başarılı</Text>
+                        <Text style={{ fontSize: 13, color: isSuccess === true ? colors.filterActiveText : colors.gray600, fontWeight: isSuccess === true ? '600' : '400' }}>Başarılı</Text>
                     </Pressable>
                     <Pressable
                         onPress={() => setIsSuccess(isSuccess === false ? undefined : false)}
                         style={{
                             flex: 1,
-                            backgroundColor: isSuccess === false ? '#E6F1FB' : 'transparent',
+                            backgroundColor: isSuccess === false ? colors.filterActiveBg : colors.transparent,
                             borderWidth: isSuccess === false ? 0 : 1,
-                            borderColor: '#ccc',
+                            borderColor: colors.borderDefault,
                             borderRadius: 8,
                             paddingVertical: 8,
                             alignItems: 'center',
                         }}
                     >
-                        <Text style={{ fontSize: 13, color: isSuccess === false ? '#185FA5' : '#666', fontWeight: isSuccess === false ? '600' : '400' }}>Başarısız</Text>
+                        <Text style={{ fontSize: 13, color: isSuccess === false ? colors.filterActiveText : colors.gray600, fontWeight: isSuccess === false ? '600' : '400' }}>Başarısız</Text>
                     </Pressable>
                 </View>
             </View>
@@ -149,7 +151,7 @@ export function ManagementActivityLogFilterSheet({ visible, onClose, onApply }: 
                         />
                         {startDate && (
                             <Pressable onPress={() => setStartDate(undefined)}>
-                                <Ionicons name="close-circle" size={18} color="#999" />
+                                <Ionicons name="close-circle" size={18} color={colors.gray500} />
                             </Pressable>
                         )}
                     </View>
@@ -165,7 +167,7 @@ export function ManagementActivityLogFilterSheet({ visible, onClose, onApply }: 
                         />
                         {endDate && (
                             <Pressable onPress={() => setEndDate(undefined)}>
-                                <Ionicons name="close-circle" size={18} color="#999" />
+                                <Ionicons name="close-circle" size={18} color={colors.gray500} />
                             </Pressable>
                         )}
                     </View>
@@ -174,7 +176,7 @@ export function ManagementActivityLogFilterSheet({ visible, onClose, onApply }: 
 
             <View style={styles.buttonRow}>
                 <View style={styles.buttonHalf}>
-                    <Button title="Temizle" size="small" variant="secondary" textColor="#333" onPress={handleClear} />
+                    <Button title="Temizle" size="small" variant="secondary" textColor={colors.gray800} onPress={handleClear} />
                 </View>
                 <View style={styles.buttonHalf}>
                     <Button title="Uygula" size="small" onPress={handleApply} />
@@ -190,7 +192,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 12,
-        color: '#666',
+        color: colors.gray600,
         marginBottom: 4,
     },
     twoColumnRow: {
@@ -204,14 +206,14 @@ const styles = StyleSheet.create({
     },
     dateLabel: {
         fontSize: 12,
-        color: '#666',
+        color: colors.gray600,
         marginBottom: 6,
     },
     inputWithClear: {
         flexDirection: 'row',
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: colors.borderDefault,
         borderRadius: 8,
         paddingHorizontal: 10,
     },

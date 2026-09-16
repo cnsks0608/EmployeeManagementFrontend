@@ -10,6 +10,7 @@ import { employeesStyles } from '@/styles/employees.styles';
 import { Ionicons } from '@expo/vector-icons';
 import { useEffect, useState } from 'react';
 import { Pressable, ScrollView, Text, TextInput, View } from 'react-native';
+import { colors } from '@/constants/colors';
 
 export default function EmployeesScreen() {
   const [employees, setEmployees] = useState<Employee[]>([]);
@@ -54,15 +55,15 @@ export default function EmployeesScreen() {
           />
           {searchText.length > 0 && (
             <Pressable onPress={() => setSearchText('')}>
-              <Ionicons name="close-circle" size={18} color="#999" />
+              <Ionicons name="close-circle" size={18} color={colors.gray500} />
             </Pressable>
           )}
         </View>
         <View style={employeesStyles.iconGroup}>
-          <Button icon="options-outline" size="small" iconColor="gray" color="transparent" onPress={() => setFilterModalVisible(true)} />
-          <Button icon="swap-vertical-outline" size="small" iconColor="gray" color="transparent" onPress={() => setSortModalVisible(true)} />
+          <Button icon="options-outline" size="small" iconColor={colors.gray500} color={colors.transparent} onPress={() => setFilterModalVisible(true)} />
+          <Button icon="swap-vertical-outline" size="small" iconColor={colors.gray500} color={colors.transparent} onPress={() => setSortModalVisible(true)} />
         </View>
-        <Button title="Ara" color="#B0B0B0" size="small" onPress={handleSearch} />
+        <Button title="Ara" color={colors.gray500} size="small" onPress={handleSearch} />
       </View>
 
       <Text style={employeesStyles.resultCount}>{totalCount} kayıt bulundu</Text>

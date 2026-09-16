@@ -1,4 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { colors } from '@/constants/colors';
+
 
 export type ActivityLog = {
   id: number;
@@ -75,22 +77,22 @@ const styles = StyleSheet.create({
 
   headerRow: {
     flexDirection: 'row',
-    backgroundColor: '#d8d7d7',
+    backgroundColor: colors.tableHeaderBg,
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    borderBottomColor: colors.borderDefault,
   },
 
   row: {
     flexDirection: 'row',
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     borderBottomWidth: 1,
-    borderColor: '#03021d',
+    borderColor: colors.borderDark,
     paddingBottom: 4,
   },
 
   column: {
     borderRightWidth: 1,
-    borderRightColor: '#03021d',
+    borderRightColor: colors.borderDark,
   },
   cell: {
     width: 140,
@@ -98,7 +100,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 6,
     fontSize: 14,
-    color: 'black',
+    color: colors.black,
     lineHeight: 20,
   },
   cellTall: {
@@ -107,28 +109,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 6,
     fontSize: 14,
-    color: 'black',
+    color: colors.black,
     lineHeight: 20,
   },
   rowSuccess: {
     flexDirection: 'row',
-    backgroundColor: '#EAF3DE',
+    backgroundColor: colors.rowSuccessBg,
     borderBottomWidth: 1,
-    borderColor: '#03021d',
+    borderColor: colors.borderDark,
     paddingBottom: 4,
   },
   rowFailed: {
     flexDirection: 'row',
-    backgroundColor: '#FBEAEA',
+    backgroundColor: colors.rowFailedBg,
     borderBottomWidth: 1,
-    borderColor: '#03021d',
+    borderColor: colors.borderDark,
     paddingBottom: 4,
   },
   rowSelected: {
     flexDirection: 'row',
-    backgroundColor: '#dbdbd6',
+    backgroundColor: colors.rowSelectedBg,
     borderBottomWidth: 1,
-    borderColor: '#03021d',
+    borderColor: colors.borderDark,
     paddingBottom: 4,
   },
 });

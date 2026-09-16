@@ -7,6 +7,7 @@ import { updateMe, changePassword, deleteMe } from '@/services/profileService';
 import * as SecureStore from 'expo-secure-store';
 import { router } from 'expo-router';
 import Toast from 'react-native-toast-message';
+import { colors } from '@/constants/colors';
 
 type AccountDetailModalProps = {
   visible: boolean;
@@ -176,7 +177,7 @@ export function AccountDetailModal({ visible, onClose, user, onSuccess }: Accoun
 
         {/* Kullanıcı Adı Satırı */}
         <View style={styles.infoRow}>
-          <Ionicons name="person-outline" size={16} color="#999" />
+          <Ionicons name="person-outline" size={16} color={colors.gray500} />
           <Text style={styles.infoLabelWithMargin}>Kullanıcı Adı</Text>
 
           {isEditingUsername ? (
@@ -194,14 +195,14 @@ export function AccountDetailModal({ visible, onClose, user, onSuccess }: Accoun
                     setIsEditingUsername(false);
                   }}
                 >
-                  <Ionicons name="close-circle" size={16} color="#999" />
+                  <Ionicons name="close-circle" size={16} color={colors.gray500} />
                 </Pressable>
               )}
             </View>
           ) : (
             <Pressable style={styles.valueGroup} onPress={() => setIsEditingUsername(true)}>
               <Text style={styles.infoValue}>{username}</Text>
-              <Ionicons name="chevron-forward" size={16} color="#999" style={styles.chevronIcon} />
+              <Ionicons name="chevron-forward" size={16} color={colors.gray500} style={styles.chevronIcon} />
             </Pressable>
           )}
         </View>
@@ -210,10 +211,10 @@ export function AccountDetailModal({ visible, onClose, user, onSuccess }: Accoun
         {/* Şifre Değiştir Başlığı */}
         <Pressable style={styles.passwordCardHeader} onPress={() => setIsPasswordOpen(!isPasswordOpen)}>
           <View style={styles.valueGroup}>
-            <Ionicons name="key-outline" size={16} color="#999" />
+            <Ionicons name="key-outline" size={16} color={colors.gray500} />
             <Text style={styles.passwordLabel}>Şifre Değiştir</Text>
           </View>
-          <Ionicons name={isPasswordOpen ? 'chevron-up' : 'chevron-forward'} size={16} color="#999" />
+          <Ionicons name={isPasswordOpen ? 'chevron-up' : 'chevron-forward'} size={16} color={colors.gray500} />
         </Pressable>
 
 
@@ -229,11 +230,11 @@ export function AccountDetailModal({ visible, onClose, user, onSuccess }: Accoun
                 onChangeText={setCurrentPassword}
               />
               <Pressable onPress={() => setShowCurrentPassword(!showCurrentPassword)}>
-                <Ionicons name={showCurrentPassword ? 'eye-off' : 'eye'} size={16} color="#999" />
+                <Ionicons name={showCurrentPassword ? 'eye-off' : 'eye'} size={16} color={colors.gray500} />
               </Pressable>
               {currentPassword.length > 0 && (
                 <Pressable onPress={() => setCurrentPassword('')}>
-                  <Ionicons name="close-circle" size={16} color="#999" />
+                  <Ionicons name="close-circle" size={16} color={colors.gray500} />
                 </Pressable>
               )}
             </View>
@@ -247,11 +248,11 @@ export function AccountDetailModal({ visible, onClose, user, onSuccess }: Accoun
                 onChangeText={setNewPassword}
               />
               <Pressable onPress={() => setShowNewPassword(!showNewPassword)}>
-                <Ionicons name={showNewPassword ? 'eye-off' : 'eye'} size={16} color="#999" />
+                <Ionicons name={showNewPassword ? 'eye-off' : 'eye'} size={16} color={colors.gray500} />
               </Pressable>
               {newPassword.length > 0 && (
                 <Pressable onPress={() => setNewPassword('')}>
-                  <Ionicons name="close-circle" size={16} color="#999" />
+                  <Ionicons name="close-circle" size={16} color={colors.gray500} />
                 </Pressable>
               )}
             </View>
@@ -265,11 +266,11 @@ export function AccountDetailModal({ visible, onClose, user, onSuccess }: Accoun
                 onChangeText={setConfirmPassword}
               />
               <Pressable onPress={() => setShowConfirmPassword(!showConfirmPassword)}>
-                <Ionicons name={showConfirmPassword ? 'eye-off' : 'eye'} size={16} color="#999" />
+                <Ionicons name={showConfirmPassword ? 'eye-off' : 'eye'} size={16} color={colors.gray500} />
               </Pressable>
               {confirmPassword.length > 0 && (
                 <Pressable onPress={() => setConfirmPassword('')}>
-                  <Ionicons name="close-circle" size={16} color="#999" />
+                  <Ionicons name="close-circle" size={16} color={colors.gray500} />
                 </Pressable>
               )}
             </View>
@@ -280,12 +281,12 @@ export function AccountDetailModal({ visible, onClose, user, onSuccess }: Accoun
         {/* Hesabımı Sil Satırı */}
         <Pressable style={styles.passwordCardHeader} onPress={handleDeleteAccount}>
           <View style={styles.valueGroup}>
-            <Ionicons name="trash-outline" size={16} color="#E74C3C" />
+            <Ionicons name="trash-outline" size={16} color={colors.danger} />
             <Text style={styles.deleteLabel}>
               Hesabımı Sil
             </Text>
           </View>
-          <Ionicons name="chevron-forward" size={16} color="#E74C3C" />
+          <Ionicons name="chevron-forward" size={16} color={colors.danger}/>
         </Pressable>
 
       </View>
@@ -294,7 +295,7 @@ export function AccountDetailModal({ visible, onClose, user, onSuccess }: Accoun
       {/* Aksiyon Butonları */}
       <View style={styles.buttonRow}>
         <View style={styles.buttonHalf}>
-          <Button title="İptal" size="small" variant="secondary" textColor="#333" onPress={handleClose} />
+          <Button title="İptal" size="small" variant="secondary" textColor={colors.gray800} onPress={handleClose} />
         </View>
         <View style={styles.buttonHalf}>
           <Button title="Kaydet" size="small" onPress={handleSave} />
@@ -318,29 +319,29 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: '#E6F1FB',
+    backgroundColor: colors.primaryBg,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 8,
   },
   avatarText: {
-    color: '#185FA5',
+    color: colors.primary,
     fontSize: 18,
     fontWeight: '600',
   },
   headerTitle: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#333',
+    color: colors.gray800,
   },
   headerSubtitle: {
     fontSize: 13,
-    color: '#666',
+    color: colors.gray600,
     marginBottom: 10,
   },
   infoSection: {
     borderTopWidth: 1,
-    borderTopColor: '#eee',
+    borderTopColor:colors.borderLight,
     paddingTop: 18,
     gap: 18,
   },
@@ -352,18 +353,18 @@ const styles = StyleSheet.create({
   },
   infoLabel: {
     fontSize: 13,
-    color: '#666',
+    color: colors.gray600,
     width: 90,
   },
   infoLabelWithMargin: {
     fontSize: 13,
-    color: '#666',
+    color: colors.gray600,
     width: 90,
     marginRight: 16,
   },
   infoValue: {
     fontSize: 13,
-    color: '#333',
+    color: colors.gray800,
     flex: 1,
   },
   valueGroup: {
@@ -378,7 +379,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#e9e6e6',
+    borderColor: colors.borderLight,
     borderRadius: 8,
     paddingHorizontal: 8,
     flex: 1,
@@ -397,32 +398,32 @@ const styles = StyleSheet.create({
   },
   passwordLabel: {
     fontSize: 13,
-    color: '#666',
+    color: colors.gray600,
     marginLeft: 10,
   },
   deleteLabel: {
     fontSize: 13,
-    color: '#E74C3C',
+    color: colors.danger,
     marginLeft: 10,
   },
   passwordForm: {
     paddingTop: 12,
     borderTopWidth: 1,
-    borderTopColor: '#eee',
+    borderTopColor: colors.borderLight,
     gap: 4,
   },
   inputLabel: {
     fontSize: 12,
-    color: '#666',
+    color: colors.gray600,
     marginTop: 8,
     marginBottom: 4,
   },
   inputWrapper: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: 'white',
+    backgroundColor: colors.white,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: colors.borderDefault,
     borderRadius: 8,
     paddingHorizontal: 10,
     gap: 6,

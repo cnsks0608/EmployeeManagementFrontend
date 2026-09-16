@@ -7,7 +7,7 @@ import { Ionicons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useEffect, useState } from 'react';
 import { Pressable, Text, TextInput, View } from 'react-native';
-
+import { colors } from '@/constants/colors';
 
 type Department = {
   id: number;
@@ -105,7 +105,7 @@ export function EmployeeFilterSheet({ visible, onClose, onApply }: EmployeeFilte
           <TextInput style={styles.inputFlex} placeholder="Email" value={email} onChangeText={setEmail} />
           {email.length > 0 && (
             <Pressable onPress={() => setEmail('')}>
-              <Ionicons name="close-circle" size={18} color="#999" />
+              <Ionicons name="close-circle" size={18} color={colors.gray500} />
             </Pressable>
           )}
         </View>
@@ -117,7 +117,7 @@ export function EmployeeFilterSheet({ visible, onClose, onApply }: EmployeeFilte
           <TextInput style={styles.inputFlex} placeholder="Sicil No" value={registrationNumber} onChangeText={setRegistrationNumber} />
           {registrationNumber.length > 0 && (
             <Pressable onPress={() => setRegistrationNumber('')}>
-              <Ionicons name="close-circle" size={18} color="#999" />
+              <Ionicons name="close-circle" size={18} color={colors.gray500} />
             </Pressable>
           )}
         </View>
@@ -136,7 +136,7 @@ export function EmployeeFilterSheet({ visible, onClose, onApply }: EmployeeFilte
             />
             {startHireDate && (
               <Pressable onPress={() => setStartHireDate(undefined)}>
-                <Ionicons name="close-circle" size={18} color="#999" />
+                <Ionicons name="close-circle" size={18} color={colors.gray500} />
               </Pressable>
             )}
           </View>
@@ -152,7 +152,7 @@ export function EmployeeFilterSheet({ visible, onClose, onApply }: EmployeeFilte
             />
             {endHireDate && (
               <Pressable onPress={() => setEndHireDate(undefined)}>
-                <Ionicons name="close-circle" size={18} color="#999" />
+                <Ionicons name="close-circle" size={18} color={colors.gray500} />
               </Pressable>
             )}
           </View>
@@ -191,7 +191,7 @@ export function EmployeeFilterSheet({ visible, onClose, onApply }: EmployeeFilte
           <Button title="Uygula" size="small" onPress={handleApply} />
         </View>
         <View style={styles.buttonHalf}>
-          <Button title="Temizle" size="small" variant="secondary" textColor="#333" onPress={handleClear} />
+          <Button title="Temizle" size="small" variant="secondary" textColor={colors.gray800} onPress={handleClear} />
         </View>
       </View>
     </BottomSheet>

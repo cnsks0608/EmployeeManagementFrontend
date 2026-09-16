@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useState } from 'react';
 import { Pressable, StyleSheet, Text, TextInput, View } from 'react-native';
+import { colors } from '@/constants/colors';
 
 type RequestLogFilters = {
     httpMethod?: string;
@@ -61,7 +62,7 @@ export function ManagementRequestLogFilterSheet({ visible, onClose, onApply }: M
                     <TextInput style={styles.inputFlex} placeholder="Kullanıcı Adı" value={username} onChangeText={setUsername} autoCapitalize="none" />
                     {username.length > 0 && (
                         <Pressable onPress={() => setUsername('')}>
-                            <Ionicons name="close-circle" size={18} color="#999" />
+                            <Ionicons name="close-circle" size={18} color={colors.gray500} />
                         </Pressable>
                     )}
                 </View>
@@ -116,7 +117,7 @@ export function ManagementRequestLogFilterSheet({ visible, onClose, onApply }: M
                         />
                         {startDate && (
                             <Pressable onPress={() => setStartDate(undefined)}>
-                                <Ionicons name="close-circle" size={18} color="#999" />
+                                <Ionicons name="close-circle" size={18} color={colors.gray500} />
                             </Pressable>
                         )}
                     </View>
@@ -132,7 +133,7 @@ export function ManagementRequestLogFilterSheet({ visible, onClose, onApply }: M
                         />
                         {endDate && (
                             <Pressable onPress={() => setEndDate(undefined)}>
-                                <Ionicons name="close-circle" size={18} color="#999" />
+                                <Ionicons name="close-circle" size={18} color={colors.gray500} />
                             </Pressable>
                         )}
                     </View>
@@ -141,7 +142,7 @@ export function ManagementRequestLogFilterSheet({ visible, onClose, onApply }: M
 
             <View style={styles.buttonRow}>
                 <View style={styles.buttonHalf}>
-                    <Button title="Temizle" size="small" variant="secondary" textColor="#333" onPress={handleClear} />
+                    <Button title="Temizle" size="small" variant="secondary" textColor={colors.gray800} onPress={handleClear} />
                 </View>
                 <View style={styles.buttonHalf}>
                     <Button title="Uygula" size="small" onPress={handleApply} />
@@ -157,7 +158,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 12,
-        color: '#666',
+        color: colors.gray600,
         marginBottom: 4,
     },
     twoColumnRow: {
@@ -171,14 +172,14 @@ const styles = StyleSheet.create({
     },
     dateLabel: {
         fontSize: 12,
-        color: '#666',
+        color: colors.gray600,
         marginBottom: 6,
     },
     inputWithClear: {
         flexDirection: 'row',
         alignItems: 'center',
         borderWidth: 1,
-        borderColor: '#ccc',
+        borderColor: colors.borderDefault,
         borderRadius: 8,
         paddingHorizontal: 10,
     },
