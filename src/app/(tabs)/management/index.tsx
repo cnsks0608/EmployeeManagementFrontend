@@ -2,9 +2,11 @@ import { managementStyles as styles } from '@/styles/management.styles';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { Pressable, Text, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function ManagementScreen() {
   return (
+    <ScrollView>
     <View style={styles.container}>
       <Pressable style={styles.card} onPress={() => router.push('/(tabs)/management/employees')}>
         <View style={[styles.iconBox, styles.iconBoxBlue]}>
@@ -38,5 +40,6 @@ export default function ManagementScreen() {
         <Ionicons name="chevron-forward" size={18} color="#999" />
       </Pressable>
     </View>
+    </ScrollView>
   );
 }

@@ -18,6 +18,12 @@ export async function updateMe(dto: UpdateMeDto) {
   });
 }
 
+export async function deleteMe() {
+  return apiClient('/api/User/DeleteMe', {
+    method: 'DELETE',
+  });
+}
+
 type ChangePasswordDto = {
   currentPassword: string;
   newPassword: string;

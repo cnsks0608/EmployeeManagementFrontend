@@ -1,26 +1,31 @@
-import { getMe, updateMe, logout } from '@/services/profileService';
+import { getMe, updateMe, changePassword, logout } from '@/services/profileService';
 import { getEmployeeById } from '@/services/employeeService';
 import { useEffect, useState } from 'react';
-import { View, Text, Alert } from 'react-native';
+import { View, Text, Alert, ScrollView, Pressable } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import * as SecureStore from 'expo-secure-store';
 import { router } from 'expo-router';
 import { Button } from '@/components/ui/Button/Button';
+import { AccountDetailModal } from '@/components/profile/AccountDetailModal';
+import { profileStyles as styles } from '@/styles/profile.styles';
+
 
 export default function ProfileScreen() {
   const [user, setUser] = useState<any>(null);
   const [employee, setEmployee] = useState<any>(null);
+  const [accountModalVisible, setAccountModalVisible] = useState(false);
 
-  useEffect(() => {
-    async function fetchProfile() {
-      const meData = await getMe();
-      setUser(meData);
+  async function fetchProfile() {
+    const meData = await getMe();
+    setUser(meData);
 
-      if (meData.employeeId) {
-        const employeeData = await getEmployeeById(meData.employeeId);
-        setEmployee(employeeData);
-      }
+    if (meData?.employeeId) {
+      const employeeData = await getEmployeeById(meData.employeeId);
+      setEmployee(employeeData);
     }
-    fetchProfile();
+  }
+  useEffect(() => {
+    fetchProfile();  // sayfa ilk açıldığında bir kez yüklenir 
   }, []);
 
   function handleLogout() {
@@ -36,7 +41,7 @@ export default function ProfileScreen() {
             try {
               await logout();
             } catch (error) {
-              // Backend'e ulaşamasak bile, kullanıcıyı çıkış yaptırmaya devam ediyoruz
+              // Backend'e ulaşamasak bile, kullanıcıyı çıkış yaptırmaya devam ediyoruz (tokenını sileriz)
             }
             await SecureStore.deleteItemAsync('token');
             router.replace('/login');
@@ -46,28 +51,105 @@ export default function ProfileScreen() {
     );
   }
 
+  function getInitials(firstName?: string, lastName?: string) {
+    if (!firstName || !lastName) return '';
+    return `${firstName[0]}${lastName[0]}`.toUpperCase();
+  }
 
   return (
-    <View style={{ padding: 20 }}>
-      <Text>Kullanıcı Adı: {user?.username}</Text>
-      <Text>Email: {user?.email}</Text>
-      <Text>Rol: {user?.roleName}</Text>
-      <Text>Ad Soyad: {employee?.firstName} {employee?.lastName}</Text>
-      <Text>Departman: {employee?.departmentName}</Text>
-      <Text>Unvan: {employee?.titleName}</Text>
-      <Text>Maaş: {employee?.salary}</Text>
+    <>
+      <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
+        <View style={styles.header}>
+          <View style={styles.avatar}>
+            <Text style={styles.avatarText}>
+              {getInitials(employee?.firstName, employee?.lastName)}
+            </Text>
+          </View>
+          <Text style={styles.name}>
+            {employee ? `${employee.firstName} ${employee.lastName}` : user?.username}
+          </Text>
+          {employee && (
+            <Text style={styles.subtitle}>
+              {employee.titleName} · {employee.departmentName}
+            </Text>
+          )}
+        </View>
 
-      <View style={{ marginTop: 20 }}>
-        <Button title="Çıkış Yap" color="#FBEAEA" textColor="#C0392B" onPress={handleLogout} />
-      </View>
-    </View>
+        <Pressable style={styles.card} onPress={() => setAccountModalVisible(true)}>
+          <View style={styles.cardHeader}>
+            <View style={styles.cardTitleGroup}>
+              <Ionicons name="person-circle-outline" size={20} color="#185FA5" />
+              <Text style={styles.cardTitle}>Hesap Bilgileri</Text>
+            </View>
+            <Ionicons name="chevron-forward" size={18} color="#999" />
+          </View>
+
+          <View style={styles.row}>
+            <Text style={styles.label}>Kullanıcı Adı</Text>
+            <Text style={styles.value}>{user?.username || '-'}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.label}>Rol</Text>
+            <Text style={styles.value}>{user?.roleName || '-'}</Text>
+          </View>
+        </Pressable>
+
+
+        <View style={styles.card}>
+          <View style={styles.cardHeader}>
+            <View style={styles.cardTitleGroup}>
+              <Ionicons name="briefcase-outline" size={20} color="#3B6D11" />
+              <Text style={styles.cardTitle}>Çalışan Bilgileri</Text>
+            </View>
+          </View>
+
+          <View style={styles.row}>
+            <Text style={styles.label}>Ad Soyad</Text>
+            <Text style={styles.value}>{employee ? `${employee.firstName} ${employee.lastName}` : '-'}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.label}>Sicil No</Text>
+            <Text style={styles.value}>{employee?.registrationNumber || '-'}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.label}>Email</Text>
+            <Text style={styles.value}>{employee?.email || '-'}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.label}>Departman</Text>
+            <Text style={styles.value}>{employee?.departmentName || '-'}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.label}>Unvan</Text>
+            <Text style={styles.value}>{employee?.titleName || '-'}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.label}>İşe Giriş Tarihi</Text>
+            <Text style={styles.value}>
+              {employee?.hireDate ? new Date(employee.hireDate).toLocaleDateString('tr-TR') : '-'}
+            </Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.label}>Maaş</Text>
+            <Text style={styles.value}>
+              {employee?.salary ? `${employee.salary.toLocaleString('tr-TR')} ₺` : '-'}
+            </Text>
+          </View>
+        </View>
+
+        <View style={styles.logoutWrapper}>
+          <Button title="Çıkış Yap" color="#FBEAEA" textColor="#C0392B" size="large" onPress={handleLogout} />
+        </View>
+      </ScrollView>
+
+      <AccountDetailModal
+        visible={accountModalVisible}
+        onClose={() => setAccountModalVisible(false)}
+        user={user}
+        onSuccess={() => {
+          fetchProfile();
+        }}
+      />
+    </>
   );
-
-
-
-
-
-
-
-
 }
