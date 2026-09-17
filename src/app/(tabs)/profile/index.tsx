@@ -1,4 +1,5 @@
-import { getMe, updateMe, changePassword, logout } from '@/services/profileService';
+import { updateMe, changePassword, logout } from '@/services/profileService';
+import { useAuth } from '@/context/AuthContext';
 import { getEmployeeById } from '@/services/employeeService';
 import { useEffect, useState } from 'react';
 import { View, Text, Alert, ScrollView, Pressable } from 'react-native';
@@ -13,22 +14,19 @@ import { colors } from '@/constants/colors';
 
 
 export default function ProfileScreen() {
-  const [user, setUser] = useState<any>(null);
+  const { user, refreshUser } = useAuth();
   const [employee, setEmployee] = useState<any>(null);
   const [accountModalVisible, setAccountModalVisible] = useState(false);
 
-  async function fetchProfile() {
-    const meData = await getMe();
-    setUser(meData);
-
-    if (meData?.employeeId) {
-      const employeeData = await getEmployeeById(meData.employeeId);
+  async function fetchEmployee() {
+    if (user?.employeeId) {
+      const employeeData = await getEmployeeById(user.employeeId);
       setEmployee(employeeData);
     }
   }
   useEffect(() => {
-    fetchProfile();  // sayfa ilk açıldığında bir kez yüklenir 
-  }, []);
+    fetchEmployee();  // sayfa ilk açıldığında bir kez yüklenir 
+  }, [user]);
 
   function handleLogout() {
     Alert.alert(
@@ -149,7 +147,8 @@ export default function ProfileScreen() {
         onClose={() => setAccountModalVisible(false)}
         user={user}
         onSuccess={() => {
-          fetchProfile();
+          refreshUser();
+          fetchEmployee();
         }}
       />
     </>
